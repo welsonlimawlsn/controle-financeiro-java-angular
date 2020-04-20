@@ -1,0 +1,45 @@
+label {
+  cursor: text;
+}
+
+.form-group app-toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 13px;
+  cursor: pointer;
+}
+
+.invalid-feedback {
+  display: block;
+}
+
+.form-group .label-input {
+  position: relative;
+}
+
+.form-control {
+  height: 50px;
+  border: none;
+  border-bottom: 2px solid #09C2C2;
+  border-radius: 0;
+}
+
+.form-control:focus {
+  border-color: #09C2C2;
+}
+
+.form-control.is-invalid:focus, .form-control:focus {
+  box-shadow: none;
+}
+
+.form-control.is-invalid {
+  background-image: none;
+  border-color: #dc3545;
+}
+
+.form-group label {
+  position: absolute;
+  top: 50%;
+  margin-top: -13px;
+  left: 13px;
+}

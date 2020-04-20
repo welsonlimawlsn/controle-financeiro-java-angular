@@ -1,0 +1,21 @@
+.codigo-seguranca-container {
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+}
+
+.codigo-seguranca-container > .container {
+  box-shadow: #d7d7d7 0 0 50px;
+  padding: 1rem;
+  margin-top: 5rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+.input {
+  margin: 2rem 0;
+}

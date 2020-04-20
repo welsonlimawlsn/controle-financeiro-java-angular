@@ -1,0 +1,20 @@
+p {
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+p app-toggle-password {
+  margin-left: 10px;
+}
+
+.escondido {
+  display: flex;
+  align-items: center;
+  font-size: .5rem;
+  margin-left: 4px;
+}
+
+.escondido i {
+  margin: 0 1px;
+}

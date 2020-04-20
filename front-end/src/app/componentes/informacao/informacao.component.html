@@ -1,0 +1,21 @@
+<p>
+    <span *ngIf="label">{{label}} </span>
+    <span class="corDestaque" *ngIf="valor">
+        <span class="escondido" *ngIf="escondido">
+            <i class="fas fa-circle"></i>
+            <i class="fas fa-circle"></i>
+            <i class="fas fa-circle"></i>
+            <i class="fas fa-circle"></i>
+            <i class="fas fa-circle"></i>
+            <i class="fas fa-circle"></i>
+            <i class="fas fa-circle"></i>
+            <i class="fas fa-circle"></i>
+            <i class="fas fa-circle"></i>
+            <i class="fas fa-circle"></i>
+        </span>
+        <span *ngIf="!escondido" style="margin-left: 4px">
+            {{valor}}
+        </span>
+    </span>
+    <app-toggle-password (onClick)="toggle($event)" [mostraSenha]="escondido"></app-toggle-password>
+</p>

@@ -1,0 +1,54 @@
+<div class="p-sm-2 p-md-5">
+    <app-mensagem-erro></app-mensagem-erro>
+    <h1>criando uma conta <span class="logo-fintips">fintips</span></h1>
+    <form [formGroup]="formularioCadastro">
+        <div class="grupo-etapas" *ngIf="formularioCadastro.invalid || naoEhUltimaEtapa">
+            <div class="etapa" @transicao *ngIf="etapaAtual == NOME">
+                <h2>meu nome é</h2>
+                <div class="mb-5">
+                    <app-input-text id="nome" formControlName="nome" [formGroup]="formularioCadastro" [autoFocus]="true"></app-input-text>
+                </div>
+            </div>
+            <div class="etapa" @transicao *ngIf="etapaAtual == SOBRENOME">
+                <h2>meu sobrenome é</h2>
+                <div class="mb-5">
+                    <app-input-text id="sobrenome" formControlName="sobrenome" [formGroup]="formularioCadastro"
+                                    [autoFocus]="true"></app-input-text>
+                </div>
+            </div>
+            <div class="etapa" @transicao *ngIf="etapaAtual == EMAIL">
+                <h2>meu e-mail é</h2>
+                <div class="mb-5">
+                    <app-input-text id="email" formControlName="email" [formGroup]="formularioCadastro" [autoFocus]="true"></app-input-text>
+                </div>
+            </div>
+            <div class="etapa" *ngIf="etapaAtual == SENHA">
+                <h2>minha senha é</h2>
+                <div class="mb-5">
+                    <app-input-text id="senha" formControlName="senha" [formGroup]="formularioCadastro" [autoFocus]="true"
+                                    [password]="true"></app-input-text>
+                </div>
+            </div>
+        </div>
+        <button type="submit" (click)="avancaEtapa()" *ngIf="naoEhUltimaEtapa" [disabled]="controls[etapaAtual].invalid"
+                class="btn btn-primary w-100 mb-3">
+            avançar
+        </button>
+
+        <div *ngIf="!naoEhUltimaEtapa" @transicao>
+            <h2>confira os dados que você informou</h2>
+            <p>seu nome é <span class="corDestaque">{{formularioCadastro.value.nome}}</span></p>
+            <p>seu sobrenome é <span class="corDestaque">{{formularioCadastro.value.sobrenome}}</span></p>
+            <p>o e-mail é <span class="corDestaque">{{formularioCadastro.value.email}}</span></p>
+            <app-informacao label="e a senha é" [valor]="formularioCadastro.value.senha" [valorEscondido]="true"></app-informacao>
+        </div>
+
+        <button @transicao type="submit" (click)="criaConta()" *ngIf="!naoEhUltimaEtapa" [disabled]="formularioCadastro.invalid"
+                class="btn btn-primary w-100 mb-3">criar conta
+        </button>
+        <button @transicao type="button" (click)="corrige()" *ngIf="!naoEhUltimaEtapa" [disabled]="formularioCadastro.invalid"
+                class="btn btn-secondary w-100 mb-3">corrigir
+        </button>
+    </form>
+    <p class="text-right">você já possui uma conta? <a routerLink="/usuario/login">entre aqui</a></p>
+</div>

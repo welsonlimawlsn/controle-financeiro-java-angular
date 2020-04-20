@@ -1,0 +1,64 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+  color: #818181;
+  font-family: Roboto, sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+}
+
+input:-webkit-autofill, input:-webkit-autofill:focus {
+  background-color: white!important;
+  -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+}
+
+.logo-fintips {
+  color: #09C2C2;
+  font-family: Montserrat, sans-serif;
+}
+
+a {
+  color: #09C2C2;
+}
+
+a:hover {
+  color: #09C2C2;
+}
+
+.corDestaque {
+  color: #09C2C2;
+}
+
+.btn {
+  border-radius: 0;
+  height: 50px;
+}
+
+.btn-primary {
+  background-color: #09C2C2;
+  border: none;
+}
+
+.btn-primary:focus, .btn-primary:not(:disabled):not(.disabled):active:focus {
+  box-shadow: none;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active {
+  background-color: #09C2C2;
+}
+
+.btn-primary:focus {
+  background-color: #09C2C2;
+}
+
+.btn-primary:hover {
+  background-color: #0aa0a0;
+}
+
+.btn-primary:disabled {
+  background-color: #818181;
+}

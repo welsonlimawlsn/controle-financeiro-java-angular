@@ -1,0 +1,16 @@
+<div class="codigo-seguranca-container" *ngIf="mostraJanela">
+    <div class="container">
+        <h1>código de segurança necessário</h1>
+        <h2>para a sua segurança, precisamos que você nos informe um código de segurança.</h2>
+        <h2>em breve ele chegará no seu email.</h2>
+        <app-mensagem-erro></app-mensagem-erro>
+        <form [formGroup]="formulario">
+            <div class="input">
+                <app-input-text [formGroup]="formulario" label="código de segurança" id="codigo-seguranca"
+                                formControlName="codigo"></app-input-text>
+            </div>
+            <button type="submit" class="btn btn-primary w-100" [disabled]="formulario.invalid" (click)="enviaCodigo()">enviar código
+            </button>
+        </form>
+    </div>
+</div>

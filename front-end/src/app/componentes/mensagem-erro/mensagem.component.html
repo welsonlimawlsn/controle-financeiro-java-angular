@@ -1,0 +1,5 @@
+<div *ngIf="mensagens">
+    <div *ngFor="let mensagem of mensagens" class="alert alert-{{mensagem.tipo}}" role="alert">
+       {{mensagem.mensagem | lowercase}}
+    </div>
+</div>
