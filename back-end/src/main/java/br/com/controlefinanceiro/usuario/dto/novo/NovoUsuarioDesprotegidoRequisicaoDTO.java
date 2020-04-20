@@ -10,9 +10,4 @@ import br.com.controlefinanceiro.codigoconfirmacao.anotacao.RequerCodigoSeguranc
 @RequerCodigoSeguranca
 public class NovoUsuarioDesprotegidoRequisicaoDTO extends AbstractNovoUsuarioRequisicaoDTO<NovoUsuarioDesprotegidoRespostaDTO>
 {
-    @Override
-    public String getEmailEnvioCodigoSeguranca()
-    {
-        return getEmail();
-    }
 }

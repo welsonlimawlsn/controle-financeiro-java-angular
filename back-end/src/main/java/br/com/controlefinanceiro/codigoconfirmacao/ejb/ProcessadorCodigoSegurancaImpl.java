@@ -7,6 +7,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
 import java.time.ZonedDateTime;
 import java.util.Collections;
+import java.util.List;
 
 import br.com.controlefinanceiro.codigoconfirmacao.dao.CodigoSegurancaDAO;
 import br.com.controlefinanceiro.codigoconfirmacao.entidade.CodigoSeguranca;
@@ -25,11 +26,13 @@ import br.com.controlefinanceiro.requisicao.servicos.RequisicaoService;
 public class ProcessadorCodigoSegurancaImpl implements ProcessadorCodigoSeguranca
 {
 
-    private static final String TEMPLATE_EMAIL_CODIGO_SEGURANCA = "codigo_seguranca.vm";
+    private static final String TEMPLATE = "codigo_seguranca.vm";
 
     private static final int QUANTIDADE_NUMEROS = 8;
 
     private static final int TEMPO_EXPIRACAO_CODIGO_SEGURANCA = 15;
+
+    private static final String SUBJECT = "Código de segurança - Fintips";
 
     @EJB
     private ProcessadorEmail processadorEmail;
@@ -57,16 +60,21 @@ public class ProcessadorCodigoSegurancaImpl implements ProcessadorCodigoSeguranc
             RespostaDTO resposta = requisicaoDTO.getResposta();
 
             resposta.setCodigoSeguranca(codigoSeguranca.getCodigo());
-            resposta.setTemplateEmail(TEMPLATE_EMAIL_CODIGO_SEGURANCA);
-            resposta.setDestinatarios(Collections.singleton(requisicaoDTO.getEmailEnvioCodigoSeguranca()));
-            resposta.setAssunto("Código de segurança - Fintips");
 
-            processadorEmail.processaEmail(resposta);
+            processadorEmail.processaEmail(getEmail(requisicaoDTO), null, SUBJECT, TEMPLATE, resposta);
         }
         catch (Exception e)
         {
             throw new InfraestruturaException(Erro.ERRO_AO_CRIAR_NOVO_CODIGO_SEGURANCA, e);
         }
+    }
+
+    private List<String> getEmail(RequisicaoDTO<?> requisicaoDTO)
+    {
+        if (requisicaoDTO.getUsuario() != null) {
+            return Collections.singletonList(requisicaoDTO.getUsuario().getEmail());
+        }
+        return Collections.singletonList(requisicaoDTO.getEmail());
     }
 
     @Override

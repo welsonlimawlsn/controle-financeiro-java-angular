@@ -12,4 +12,6 @@ import java.lang.annotation.Target;
 public @interface EnviaEmail
 {
     String vm();
+
+    String subject() default "";
 }

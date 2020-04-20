@@ -7,6 +7,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import br.com.controlefinanceiro.exception.Erro;
+import br.com.controlefinanceiro.exception.InfraestruturaException;
+import br.com.controlefinanceiro.exception.NegocioException;
 import br.com.controlefinanceiro.requisicao.dto.RequisicaoDTO;
 
 @Getter
@@ -19,10 +21,14 @@ public abstract class AbstractNovoUsuarioRequisicaoDTO<T extends AbstractNovoUsu
     @NotEmpty(message = Erro.Constante.SOBRENOME_OBRIGATORIO)
     private String sobrenome;
 
-    @NotEmpty(message = Erro.Constante.EMAIL_OBRIGATORIO)
-    @Email(message = Erro.Constante.EMAIL_INVALIDO)
-    private String email;
-
     @NotEmpty(message = Erro.Constante.SENHA_OBRIGATORIA)
     private String senha;
+
+    @NotEmpty(message = Erro.Constante.EMAIL_OBRIGATORIO)
+    @Email(message = Erro.Constante.EMAIL_INVALIDO)
+    @Override
+    public String getEmail()
+    {
+        return super.getEmail();
+    }
 }

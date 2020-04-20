@@ -114,10 +114,7 @@ public class ProcessadorRequisicaoImpl implements ProcessadorRequisicao
     {
         Map<Class<? extends Annotation>, Processa> processadores = new HashMap<>();
 
-        processadores.put(EnviaEmail.class, (requisicao, resposta) -> {
-            resposta.setTemplateEmail(resposta.getClass().getAnnotation(EnviaEmail.class).vm());
-            processadorEmail.processaEmail(resposta);
-        });
+        processadores.put(EnviaEmail.class, (requisicao, resposta) -> processadorEmail.processaEmail(resposta));
         processadores.put(EmiteRelatorio.class, (requisicao, resposta) -> processadorRelatorio.processaRelatorio(resposta));
 
         return processadores;

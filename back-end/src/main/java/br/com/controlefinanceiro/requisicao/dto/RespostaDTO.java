@@ -16,32 +16,4 @@ public abstract class RespostaDTO
      */
     @JsonIgnore
     private String codigoSeguranca;
-
-    /**
-     * Nome do template para envio de e-mail caso necessário, não deve ir na resposta final para o cliente
-     */
-    @JsonIgnore
-    private String templateEmail;
-
-    @JsonIgnore
-    private RequisicaoDTO<?> requisicao;
-
-    @JsonIgnore
-    private Set<String> destinatarios = new HashSet<>();
-
-    @JsonIgnore
-    private String assunto;
-
-    @JsonIgnore
-    private Set<String> copias = new HashSet<>();
-
-    public void adicionaDestinatario(String email)
-    {
-        destinatarios.add(email);
-    }
-
-    public void adicionaCopia(String email)
-    {
-        copias.add(email);
-    }
 }

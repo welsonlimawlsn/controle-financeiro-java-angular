@@ -19,6 +19,8 @@ public abstract class RequisicaoDTO<T extends RespostaDTO>
 {
     private String codigoSeguranca;
 
+    private String email;
+
     @JsonIgnore
     private Usuario usuario;
 
@@ -27,9 +29,6 @@ public abstract class RequisicaoDTO<T extends RespostaDTO>
 
     @JsonIgnore
     private T resposta;
-
-    @JsonIgnore
-    private String emailEnvioCodigoSeguranca;
 
     @JsonIgnore
     private String ipOrigem;
@@ -47,7 +46,6 @@ public abstract class RequisicaoDTO<T extends RespostaDTO>
                 ParameterizedType aClass = (ParameterizedType) this.getClass().getGenericSuperclass();
                 Class<T> respostaClass = (Class<T>) aClass.getActualTypeArguments()[0];
                 resposta = respostaClass.getConstructor().newInstance();
-                resposta.setRequisicao(this);
             }
             catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e)
             {

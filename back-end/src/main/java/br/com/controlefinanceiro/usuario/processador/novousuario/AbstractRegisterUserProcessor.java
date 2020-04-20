@@ -38,10 +38,8 @@ public abstract class AbstractRegisterUserProcessor<REQUISICAO extends AbstractN
 
         usuarioDAO.salva(usuario);
 
-        resposta.setAssunto("Confirmação de conta - Fintips");
-        resposta.adicionaDestinatario(usuario.getEmail());
-
         resposta.setUsuario(usuario);
+        resposta.setEmail(requisisao.getEmail());
     }
 
     protected abstract Grupo getGroup(REQUISICAO requisisao);
