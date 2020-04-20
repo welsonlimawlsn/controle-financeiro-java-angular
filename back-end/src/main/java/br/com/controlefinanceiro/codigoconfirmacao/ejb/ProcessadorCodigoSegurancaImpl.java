@@ -14,12 +14,11 @@ import br.com.controlefinanceiro.email.processador.ProcessadorEmail;
 import br.com.controlefinanceiro.exception.Erro;
 import br.com.controlefinanceiro.exception.InfraestruturaException;
 import br.com.controlefinanceiro.exception.NegocioException;
-import br.com.controlefinanceiro.funcionalidade.dao.FuncionalidadeDAO;
-import br.com.controlefinanceiro.json.servicos.JsonService;
 import br.com.controlefinanceiro.requisicao.dao.RequisicaoDAO;
 import br.com.controlefinanceiro.requisicao.dto.RequisicaoDTO;
 import br.com.controlefinanceiro.requisicao.dto.RespostaDTO;
 import br.com.controlefinanceiro.requisicao.entidade.Requisicao;
+import br.com.controlefinanceiro.requisicao.servicos.RequisicaoService;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
@@ -42,10 +41,7 @@ public class ProcessadorCodigoSegurancaImpl implements ProcessadorCodigoSeguranc
     private RequisicaoDAO requisicaoDAO;
 
     @Inject
-    private FuncionalidadeDAO funcionalidadeDAO;
-
-    @Inject
-    private JsonService jsonService;
+    private RequisicaoService requisicaoService;
 
     @Override
     public void processaNovoCodigoSeguranca(RequisicaoDTO<?> requisicaoDTO) throws InfraestruturaException
@@ -81,7 +77,8 @@ public class ProcessadorCodigoSegurancaImpl implements ProcessadorCodigoSeguranc
                         requisicao.getIpOrigem(), requisicao.getUsuario())
                 .orElseThrow(() -> new NegocioException(Erro.CODIGO_SEGURANCA_INVALIDO));
 
-        if (codigoSeguranca.getUsuario() != null && !codigoSeguranca.getUsuario().equals(requisicao.getUsuario())) {
+        if (codigoSeguranca.getUsuario() != null && !codigoSeguranca.getUsuario().equals(requisicao.getUsuario()))
+        {
             throw new NegocioException(Erro.CODIGO_SEGURANCA_INVALIDO);
         }
 
@@ -111,13 +108,8 @@ public class ProcessadorCodigoSegurancaImpl implements ProcessadorCodigoSeguranc
 
     private Requisicao criaRequisicao(RequisicaoDTO<?> requisicaoDTO) throws InfraestruturaException
     {
-        Requisicao requisicao = new Requisicao();
 
-        requisicao.setUsuario(requisicaoDTO.getUsuario());
-        requisicao.setFuncionalidade(funcionalidadeDAO.buscaPorId(requisicaoDTO.getFuncionalidade().getId()).orElse(null));
-        requisicao.setConcluida(false);
-        requisicao.setCorpo(jsonService.serializa(requisicaoDTO));
-        requisicao.setIpOrigem(requisicaoDTO.getIpOrigem());
+        Requisicao requisicao = requisicaoService.parseToEntity(requisicaoDTO);
 
         requisicaoDAO.salva(requisicao);
 

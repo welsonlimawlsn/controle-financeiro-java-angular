@@ -20,6 +20,7 @@ import br.com.controlefinanceiro.exception.InfraestruturaException;
 import br.com.controlefinanceiro.parametro.constante.Parametros;
 import br.com.controlefinanceiro.parametro.entidade.Parametro;
 import br.com.controlefinanceiro.parametro.servico.ParametroService;
+import br.com.controlefinanceiro.seguranca.servicos.CriptografiaSimetricaService;
 
 @WebListener()
 public class InitializerListener implements ServletContextListener
@@ -36,11 +37,15 @@ public class InitializerListener implements ServletContextListener
     @Inject
     private ParametroService parametroService;
 
+    @Inject
+    private CriptografiaSimetricaService criptografiaSimetricaService;
+
     @Override
     public void contextInitialized(ServletContextEvent sce)
     {
         configuraVelocity();
         configuraChaveAssinaturaToken();
+        criptografiaSimetricaService.criaChaves();
     }
 
     private void configuraChaveAssinaturaToken()

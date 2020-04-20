@@ -25,14 +25,13 @@ import br.com.controlefinanceiro.email.processador.ProcessadorEmail;
 import br.com.controlefinanceiro.exception.Erro;
 import br.com.controlefinanceiro.exception.InfraestruturaException;
 import br.com.controlefinanceiro.exception.NegocioException;
-import br.com.controlefinanceiro.json.servicos.JsonService;
 import br.com.controlefinanceiro.relatorio.anotacao.EmiteRelatorio;
 import br.com.controlefinanceiro.relatorio.processador.ProcessadorRelatorio;
 import br.com.controlefinanceiro.requisicao.anotacao.ProcessadorSelector;
 import br.com.controlefinanceiro.requisicao.dto.RequisicaoDTO;
 import br.com.controlefinanceiro.requisicao.dto.RespostaDTO;
-import br.com.controlefinanceiro.requisicao.entidade.Requisicao;
 import br.com.controlefinanceiro.requisicao.processador.AbstractProcessadorRequisicao;
+import br.com.controlefinanceiro.requisicao.servicos.RequisicaoService;
 
 @Stateless
 public class ProcessadorRequisicaoImpl implements ProcessadorRequisicao
@@ -55,7 +54,7 @@ public class ProcessadorRequisicaoImpl implements ProcessadorRequisicao
     private ProcessadorRelatorio processadorRelatorio;
 
     @Inject
-    private JsonService jsonService;
+    private RequisicaoService requisicaoService;
 
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -77,7 +76,7 @@ public class ProcessadorRequisicaoImpl implements ProcessadorRequisicao
         else
         {
             codigoSeguranca = processadorCodigoSeguranca.processaCodigoSegurancaExistente(requisicao);
-            requisicao = getRequisicaoCodigoSeguranca(codigoSeguranca, requisicao);
+            requisicao = (REQUISICAO) requisicaoService.parseToDTO(codigoSeguranca.getRequisicao(), requisicao.getClass());
         }
 
         if (requisicao.getClass().isAnnotationPresent(RequerCodigoSeguranca.class) && codigoSeguranca == null)
@@ -109,20 +108,6 @@ public class ProcessadorRequisicaoImpl implements ProcessadorRequisicao
         {
             throw new InfraestruturaException(Erro.PROCESSADOR_NAO_ENCONTRADO, e, requisicao.getFuncionalidade().getNome());
         }
-    }
-
-    private <REQUISICAO extends RequisicaoDTO<RESPOSTA>, RESPOSTA extends RespostaDTO> REQUISICAO getRequisicaoCodigoSeguranca(CodigoSeguranca codigoSeguranca, REQUISICAO requisicaoDTO) throws InfraestruturaException
-    {
-        Requisicao requisicao = codigoSeguranca.getRequisicao();
-
-        REQUISICAO novaRequisicao = (REQUISICAO) jsonService.deserializa(requisicao.getCorpo(), requisicaoDTO.getClass());
-
-        novaRequisicao.setIpOrigem(requisicaoDTO.getIpOrigem());
-        novaRequisicao.setUsuario(requisicaoDTO.getUsuario());
-        novaRequisicao.setFuncionalidade(requisicaoDTO.getFuncionalidade());
-        novaRequisicao.setResposta(requisicaoDTO.getResposta());
-
-        return novaRequisicao;
     }
 
     private Map<Class<? extends Annotation>, Processa> getOutrosProcessadores()
