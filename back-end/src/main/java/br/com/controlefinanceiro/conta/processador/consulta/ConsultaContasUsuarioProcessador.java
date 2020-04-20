@@ -25,6 +25,11 @@ public class ConsultaContasUsuarioProcessador extends AbstractProcessadorRequisi
         resposta.setContas(contas);
     }
 
+    @Override
+    public void realizaPreValidacao(ConsultaContasUsuarioRequisicaoDTO requisicao) throws NegocioException
+    {
+    }
+
     private ContaDTO criaContaDTO(Conta conta)
     {
         return ContaDTO.builder()

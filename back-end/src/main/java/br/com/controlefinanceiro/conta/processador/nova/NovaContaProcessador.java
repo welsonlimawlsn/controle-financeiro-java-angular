@@ -31,4 +31,10 @@ public class NovaContaProcessador extends AbstractProcessadorRequisicao<NovaCont
 
         contaDAO.salva(conta);
     }
+
+    @Override
+    public void realizaPreValidacao(NovaContaRequisicaoDTO novaContaRequisicaoDTO) throws NegocioException
+    {
+
+    }
 }

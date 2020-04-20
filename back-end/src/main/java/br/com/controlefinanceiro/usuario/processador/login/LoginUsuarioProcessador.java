@@ -32,11 +32,16 @@ public class LoginUsuarioProcessador extends AbstractProcessadorRequisicao<Login
     protected void processaRequisicao(LoginUsuarioRequisicaoDTO requisicao, LoginUsuarioRespostaDTO resposta) throws NegocioException, InfraestruturaException
     {
         Usuario usuario = buscaUsuario(requisicao);
-
         validaSenha(requisicao, usuario);
-
         resposta.setUsuario(UsuarioDTO.builder().nome(usuario.getNome()).sobrenome(usuario.getSobrenome()).email(usuario.getEmail()).build());
         resposta.setToken(tokenService.geraToken(usuario));
+    }
+
+    @Override
+    public void realizaPreValidacao(LoginUsuarioRequisicaoDTO requisicao) throws NegocioException
+    {
+        Usuario usuario = buscaUsuario(requisicao);
+        validaSenha(requisicao, usuario);
     }
 
     private Usuario buscaUsuario(LoginUsuarioRequisicaoDTO requisicao) throws NegocioException

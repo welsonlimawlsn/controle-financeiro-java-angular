@@ -1,13 +1,5 @@
 package br.com.controlefinanceiro.requisicao.processador;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import br.com.controlefinanceiro.exception.Erro;
 import br.com.controlefinanceiro.exception.InfraestruturaException;
 import br.com.controlefinanceiro.exception.NegocioException;
@@ -28,6 +20,8 @@ public abstract class AbstractProcessadorRequisicao<REQUISICAO extends Requisica
     }
 
     protected abstract void processaRequisicao(REQUISICAO requisicao, RESPOSTA resposta) throws NegocioException, InfraestruturaException;
+
+    public abstract void realizaPreValidacao(REQUISICAO requisicao) throws NegocioException;
 
     private void validaRequisitosAcesso(REQUISICAO requisicao) throws NegocioException
     {

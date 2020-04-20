@@ -21,25 +21,29 @@ public abstract class AbstractRegisterUserProcessor<REQUISICAO extends AbstractN
     private CriptografiaService criptografiaService;
 
     @Override
-    protected void processaRequisicao(REQUISICAO requisisao, RESPOSTA resposta) throws NegocioException
+    protected void processaRequisicao(REQUISICAO requisicao, RESPOSTA resposta) throws NegocioException
     {
-        if (usuarioDAO.existeEmail(requisisao.getEmail()))
-        {
-            throw new NegocioException(Erro.EMAIL_JA_EXISTENTE);
-        }
-
         Usuario usuario = new Usuario();
 
-        usuario.setNome(requisisao.getNome());
-        usuario.setSobrenome(requisisao.getSobrenome());
-        usuario.setEmail(requisisao.getEmail());
-        usuario.setSenha(criptografiaService.hashSenha(requisisao.getSenha()));
-        usuario.setGrupo(getGroup(requisisao));
+        usuario.setNome(requisicao.getNome());
+        usuario.setSobrenome(requisicao.getSobrenome());
+        usuario.setEmail(requisicao.getEmail());
+        usuario.setSenha(criptografiaService.hashSenha(requisicao.getSenha()));
+        usuario.setGrupo(getGroup(requisicao));
 
         usuarioDAO.salva(usuario);
 
         resposta.setUsuario(usuario);
-        resposta.setEmail(requisisao.getEmail());
+        resposta.setEmail(requisicao.getEmail());
+    }
+
+    @Override
+    public void realizaPreValidacao(REQUISICAO requisicao) throws NegocioException
+    {
+        if (usuarioDAO.existeEmail(requisicao.getEmail()))
+        {
+            throw new NegocioException(Erro.EMAIL_JA_EXISTENTE);
+        }
     }
 
     protected abstract Grupo getGroup(REQUISICAO requisisao);

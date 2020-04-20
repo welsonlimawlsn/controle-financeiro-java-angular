@@ -61,35 +61,36 @@ public class ProcessadorRequisicaoImpl implements ProcessadorRequisicao
     public <REQUISICAO extends RequisicaoDTO<RESPOSTA>, RESPOSTA extends RespostaDTO> RESPOSTA processa(REQUISICAO requisicao)
             throws InfraestruturaException, NegocioException
     {
-
-        if (requisicao.getFuncionalidade() == null)
-        {
-            throw new InfraestruturaException(Erro.FUNCIONALIDADE_NULA);
-        }
-
-        CodigoSeguranca codigoSeguranca = null;
-
-        if (requisicao.getCodigoSeguranca() == null || requisicao.getCodigoSeguranca().isEmpty())
-        {
-            validaRequisicaoConstraints(requisicao);
-        }
-        else
-        {
-            codigoSeguranca = processadorCodigoSeguranca.processaCodigoSegurancaExistente(requisicao);
-            requisicao = (REQUISICAO) requisicaoService.parseToDTO(codigoSeguranca.getRequisicao(), requisicao.getClass());
-        }
-
-        if (requisicao.getClass().isAnnotationPresent(RequerCodigoSeguranca.class) && codigoSeguranca == null)
-        {
-            processadorCodigoSeguranca.processaNovoCodigoSeguranca(requisicao);
-            throw new NegocioException(Erro.CODIGO_SEGURANCA_OBRIGATORIO);
-        }
-
         try
         {
+
+            if (requisicao.getFuncionalidade() == null)
+            {
+                throw new InfraestruturaException(Erro.FUNCIONALIDADE_NULA);
+            }
+
+            CodigoSeguranca codigoSeguranca = null;
+
             AbstractProcessadorRequisicao<REQUISICAO, RESPOSTA> processadorRequisicao =
                     (AbstractProcessadorRequisicao<REQUISICAO, RESPOSTA>) processadoresRequisicao
                             .select(new ProcessadorSelector(requisicao.getFuncionalidade().getId())).get();
+
+            if (requisicao.getCodigoSeguranca() == null || requisicao.getCodigoSeguranca().isEmpty())
+            {
+                validaRequisicaoConstraints(requisicao);
+                processadorRequisicao.realizaPreValidacao(requisicao);
+            }
+            else
+            {
+                codigoSeguranca = processadorCodigoSeguranca.processaCodigoSegurancaExistente(requisicao);
+                requisicao = (REQUISICAO) requisicaoService.parseToDTO(codigoSeguranca.getRequisicao(), requisicao.getClass());
+            }
+
+            if (requisicao.getClass().isAnnotationPresent(RequerCodigoSeguranca.class) && codigoSeguranca == null)
+            {
+                processadorCodigoSeguranca.processaNovoCodigoSeguranca(requisicao);
+                throw new NegocioException(Erro.CODIGO_SEGURANCA_OBRIGATORIO);
+            }
 
             RESPOSTA resposta = processadorRequisicao.processa(requisicao);
 
