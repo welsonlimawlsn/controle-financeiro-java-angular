@@ -29,7 +29,21 @@ import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/for
             transition('labelNormal => labelRecolhida', [
                 animate('0.1s ease-in-out')
             ])
-        ])
+        ]),
+        trigger('mensagemErro', [
+            state('void', style({
+                transform: 'translate(0, -10px)',
+                opacity: 0,
+                height: 0
+            })),
+            transition('* => void', animate('.1s')),
+            transition('void => *', animate('.1s', style({
+                opacity: 1,
+                transform: 'translate(0, 0)',
+                height: 'auto'
+            })))
+            ]
+        )
     ]
 })
 export class InputTextComponent implements OnInit, ControlValueAccessor, AfterViewInit {

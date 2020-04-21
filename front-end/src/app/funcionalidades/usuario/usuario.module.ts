@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentesModule } from '../../componentes/componentes.module';
 import { LoginUsuarioComponent } from './login-usuario/login-usuario.component';
+import { RecuperacaoSenhaComponent } from './recuperacao-senha/recuperacao-senha.component';
 
 
 const routes: Routes = [
@@ -15,11 +16,15 @@ const routes: Routes = [
     {
         path: 'login',
         component: LoginUsuarioComponent
+    },
+    {
+        path: 'recuperacao-senha',
+        component: RecuperacaoSenhaComponent
     }
 ];
 
 @NgModule({
-    declarations: [NovoUsuarioComponent, LoginUsuarioComponent],
+    declarations: [NovoUsuarioComponent, LoginUsuarioComponent, RecuperacaoSenhaComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),

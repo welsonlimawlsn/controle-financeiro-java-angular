@@ -39,7 +39,7 @@ export class RequisicaoService {
 
     private refazRequisicaoComCodigoSeguranca(value: ChamadaCodigoSeguraca): Observable<any> {
         return this.realizaRequisicao(
-            this.httpClient.request(value.metodo, value.url, {body: {codigoSeguranca: value.codigo}})
+            this.httpClient.request(value.metodo, value.url, {body: {codigoSeguranca: value.codigo}}), value.metodo
         );
     }
 

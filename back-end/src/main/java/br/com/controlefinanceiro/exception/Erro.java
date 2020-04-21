@@ -34,7 +34,8 @@ public enum Erro
     CODIGO_SEGURANCA_OBRIGATORIO("023", Response.Status.FORBIDDEN),
     ERRO_AO_CRIAR_NOVO_CODIGO_SEGURANCA("024", Response.Status.INTERNAL_SERVER_ERROR),
     ERRO_PARSE_JSON("025", Response.Status.INTERNAL_SERVER_ERROR),
-    CODIGO_SEGURANCA_INVALIDO("026", Response.Status.UNAUTHORIZED);
+    CODIGO_SEGURANCA_INVALIDO("026", Response.Status.UNAUTHORIZED),
+    TAMANHO_MINIMO_SENHA("027", Response.Status.BAD_REQUEST);
 
     private final String codigo;
 
@@ -51,5 +52,7 @@ public enum Erro
         String NOME_OBRIGATORIO = "014";
 
         String SOBRENOME_OBRIGATORIO = "015";
+
+        String TAMANHO_MINIMO_SENHA = "027";
     }
 }

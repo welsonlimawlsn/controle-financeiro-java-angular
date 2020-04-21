@@ -11,6 +11,7 @@ label {
 
 .invalid-feedback {
   display: block;
+  margin-top: 0;
 }
 
 .form-group .label-input {
@@ -35,6 +36,7 @@ label {
 .form-control.is-invalid {
   background-image: none;
   border-color: #dc3545;
+  border-bottom: 2px solid #dc3545;
 }
 
 .form-group label {
@@ -42,4 +44,8 @@ label {
   top: 50%;
   margin-top: -13px;
   left: 13px;
+}
+
+.mensagem-erro {
+  height: 1rem;
 }

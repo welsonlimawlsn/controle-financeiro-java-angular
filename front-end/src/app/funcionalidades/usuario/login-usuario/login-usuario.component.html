@@ -4,14 +4,11 @@
     <app-mensagem-erro></app-mensagem-erro>
 
     <form [formGroup]="formularioLogin">
-        <div class="mb-4">
-            <app-input-text id="email" label="e-mail" [formGroup]="formularioLogin" formControlName="email"></app-input-text>
-        </div>
-        <div>
-            <app-input-text id="senha" label="senha" [formGroup]="formularioLogin" formControlName="senha"
-                            [password]="true"></app-input-text>
-        </div>
-        <button [disabled]="formularioLogin.invalid" type="submit" (click)="login()" class="btn btn-primary w-100 mt-5 mb-3">entrar</button>
+        <app-input-text id="email" label="e-mail" [formGroup]="formularioLogin" formControlName="email"></app-input-text>
+        <app-input-text id="senha" label="senha" [formGroup]="formularioLogin" formControlName="senha"
+                        [password]="true"></app-input-text>
+        <div class="texto-senha">esqueceu a sua senha? <a routerLink="/usuario/recuperacao-senha">crie outra aqui</a></div>
+        <button [disabled]="formularioLogin.invalid" type="submit" (click)="login()" class="btn btn-primary w-100 mt-3 mb-3">entrar</button>
     </form>
 
     <p class="text-right">você ainda não possui uma conta? <a routerLink="/usuario/novo">crie aqui</a></p>

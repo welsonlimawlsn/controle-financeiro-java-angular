@@ -11,6 +11,9 @@ values (4, true, 'Permite realizar a criação de novas contas', 'Criar conta', 
 insert into fcn (fcnid, fcnatcogr, fcndcc, fcnnme, fcnptdtds)
 values (5, true, 'Permite consultar as contas do usuário logado', 'Consultar contas usuário', false);
 
+insert into fcn (fcnid, fcnatcogr, fcndcc, fcnnme, fcnptdtds)
+values (6, false, 'Permite recuperar a senha esquecida', 'Recuperar senha', null);
+
 -- GRUPOS
 
 insert into gpo(gpoid, gponme)

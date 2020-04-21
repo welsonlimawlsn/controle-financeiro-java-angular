@@ -1,0 +1,5 @@
+<h1>Olá, $resposta.nome</h1>
+
+<h2>Sua senha foi alterada com sucesso!</h2>
+
+<p>Agora você pode acessar a sua conta normalmente com a sua nova senha.</p>

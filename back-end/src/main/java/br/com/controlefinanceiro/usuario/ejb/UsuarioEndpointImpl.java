@@ -15,6 +15,8 @@ import br.com.controlefinanceiro.usuario.dto.novo.NovoUsuarioDesprotegidoRequisi
 import br.com.controlefinanceiro.usuario.dto.novo.NovoUsuarioDesprotegidoRespostaDTO;
 import br.com.controlefinanceiro.usuario.dto.novo.NovoUsuarioProtegidoRequisicaoDTO;
 import br.com.controlefinanceiro.usuario.dto.novo.NovoUsuarioProtegidoRespostaDTO;
+import br.com.controlefinanceiro.usuario.dto.recuperacaosenha.RecuperacaoSenhaRequisicaoDTO;
+import br.com.controlefinanceiro.usuario.dto.recuperacaosenha.RecuperacaoSenhaRespostaDTO;
 import br.com.controlefinanceiro.usuario.endpoint.UsuarioEndpoint;
 
 @Stateless
@@ -41,6 +43,14 @@ public class UsuarioEndpointImpl implements UsuarioEndpoint
 
     @Override
     public LoginUsuarioRespostaDTO loginUsuario(@Funcionalidade(Funcionalidades.LOGIN_USUARIO) LoginUsuarioRequisicaoDTO requisicao)
+            throws InfraestruturaException, NegocioException
+    {
+        return processadorRequisicao.processa(requisicao);
+    }
+
+    @Override
+    public RecuperacaoSenhaRespostaDTO recuperaSenha(
+            @Funcionalidade(Funcionalidades.RECUPERACAO_SENHA) RecuperacaoSenhaRequisicaoDTO requisicao)
             throws InfraestruturaException, NegocioException
     {
         return processadorRequisicao.processa(requisicao);
