@@ -35,6 +35,8 @@ public class LoginUsuarioProcessador extends AbstractProcessadorRequisicao<Login
         validaSenha(requisicao, usuario);
         resposta.setUsuario(UsuarioDTO.builder().nome(usuario.getNome()).sobrenome(usuario.getSobrenome()).email(usuario.getEmail()).build());
         resposta.setToken(tokenService.geraToken(usuario));
+
+        requisicao.setUsuario(usuario);
     }
 
     @Override

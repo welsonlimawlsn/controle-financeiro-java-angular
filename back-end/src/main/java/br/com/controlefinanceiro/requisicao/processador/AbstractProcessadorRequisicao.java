@@ -1,5 +1,8 @@
 package br.com.controlefinanceiro.requisicao.processador;
 
+import javax.inject.Inject;
+
+import br.com.controlefinanceiro.dispositivo.dao.DispositivoDAO;
 import br.com.controlefinanceiro.exception.Erro;
 import br.com.controlefinanceiro.exception.InfraestruturaException;
 import br.com.controlefinanceiro.exception.NegocioException;
@@ -8,6 +11,8 @@ import br.com.controlefinanceiro.requisicao.dto.RespostaDTO;
 
 public abstract class AbstractProcessadorRequisicao<REQUISICAO extends RequisicaoDTO<RESPOSTA>, RESPOSTA extends RespostaDTO>
 {
+    @Inject
+    private DispositivoDAO dispositivoDAO;
 
     public RESPOSTA processa(REQUISICAO requisicao) throws InfraestruturaException, NegocioException
     {
@@ -16,7 +21,18 @@ public abstract class AbstractProcessadorRequisicao<REQUISICAO extends Requisica
         requisicao.criaResposta();
 
         processaRequisicao(requisicao, requisicao.getResposta());
+
+        relacionaUsuarioComDispositivoCasoNecessario(requisicao);
+
         return requisicao.getResposta();
+    }
+
+    private void relacionaUsuarioComDispositivoCasoNecessario(REQUISICAO requisicao)
+    {
+        if (requisicao.getUsuario() != null)
+        {
+            dispositivoDAO.buscaPorId(requisicao.getDispositivo().getId()).get().setUsuario(requisicao.getUsuario());
+        }
     }
 
     protected abstract void processaRequisicao(REQUISICAO requisicao, RESPOSTA resposta) throws NegocioException, InfraestruturaException;

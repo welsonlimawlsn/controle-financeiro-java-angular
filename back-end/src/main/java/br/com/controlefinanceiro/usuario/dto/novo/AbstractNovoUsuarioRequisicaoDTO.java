@@ -7,8 +7,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import br.com.controlefinanceiro.exception.Erro;
-import br.com.controlefinanceiro.exception.InfraestruturaException;
-import br.com.controlefinanceiro.exception.NegocioException;
 import br.com.controlefinanceiro.requisicao.dto.RequisicaoDTO;
 
 @Getter

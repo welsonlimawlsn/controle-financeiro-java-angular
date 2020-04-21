@@ -14,6 +14,9 @@ values (5, true, 'Permite consultar as contas do usuário logado', 'Consultar co
 insert into fcn (fcnid, fcnatcogr, fcndcc, fcnnme, fcnptdtds)
 values (6, false, 'Permite recuperar a senha esquecida', 'Recuperar senha', null);
 
+insert into fcn (fcnid, fcnatcogr, fcndcc, fcnnme, fcnptdtds)
+values (7, false, 'Permite registrar um novo dispositivo', 'Novo Dispositivo', null);
+
 -- GRUPOS
 
 insert into gpo(gpoid, gponme)

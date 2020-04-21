@@ -7,6 +7,7 @@ import lombok.Setter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 
+import br.com.controlefinanceiro.dispositivo.entidade.Dispositivo;
 import br.com.controlefinanceiro.exception.Erro;
 import br.com.controlefinanceiro.exception.InfraestruturaException;
 import br.com.controlefinanceiro.exception.NegocioException;
@@ -22,16 +23,25 @@ public abstract class RequisicaoDTO<T extends RespostaDTO>
     private String email;
 
     @JsonIgnore
+    private String mac;
+
+    @JsonIgnore
     private Usuario usuario;
 
     @JsonIgnore
     private Funcionalidade funcionalidade;
 
     @JsonIgnore
-    private T resposta;
+    private Dispositivo dispositivo;
 
     @JsonIgnore
     private String ipOrigem;
+
+    @JsonIgnore
+    private T resposta;
+
+    @JsonIgnore
+    private boolean obrigadoCodigoSeguranca;
 
     public void validaRequisicao() throws NegocioException, InfraestruturaException
     {

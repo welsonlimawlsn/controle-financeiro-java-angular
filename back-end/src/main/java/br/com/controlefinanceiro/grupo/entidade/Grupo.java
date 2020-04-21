@@ -1,5 +1,6 @@
 package br.com.controlefinanceiro.grupo.entidade;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,10 +20,12 @@ import br.com.controlefinanceiro.generico.entidade.EntidadePersistente;
 @Setter
 @Entity
 @Table(name = "GPO")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Grupo implements EntidadePersistente
 {
     @Id
     @Column(name = "GPOID")
+    @EqualsAndHashCode.Include
     private Integer id;
 
     @Column(name = "GPONME")

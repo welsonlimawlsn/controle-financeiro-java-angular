@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RequisicaoService } from '../../../componentes/http/requisicao.service';
 import { DefaultService, UsuarioDTO } from '../../../servicos';
+import { SessaoService } from '../../../componentes/seguranca/sessao.service';
 
 @Component({
     selector: 'app-login-usuario',
@@ -17,7 +18,8 @@ export class LoginUsuarioComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private requisicaoService: RequisicaoService,
-        private requisicao: DefaultService
+        private requisicao: DefaultService,
+        private sessaoService: SessaoService
     ) {
     }
 
@@ -31,6 +33,6 @@ export class LoginUsuarioComponent implements OnInit {
     login() {
         this.requisicaoService.realizaRequisicao(
             this.requisicao.loginUsuario(this.formularioLogin.value)
-        ).subscribe(response => this.usuario = response.usuario);
+        ).subscribe(response => this.sessaoService.novaSessao(response));
     }
 }

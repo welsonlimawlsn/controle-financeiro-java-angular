@@ -1,5 +1,6 @@
 package br.com.controlefinanceiro.saldo.entidade;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,11 +22,13 @@ import br.com.controlefinanceiro.saldo.enums.TipoSaldo;
 @Entity
 @Table(name = "SLD")
 @IdClass(SaldoId.class)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Saldo implements EntidadePersistente
 {
     @Id
     @ManyToOne
     @JoinColumn(name = "SLDCTA")
+    @EqualsAndHashCode.Include
     private Conta conta;
 
     @Id

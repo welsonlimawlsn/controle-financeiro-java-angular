@@ -1,5 +1,6 @@
 package br.com.controlefinanceiro.movimentacao.entidade;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,12 +24,14 @@ import br.com.controlefinanceiro.movimentacao.enums.TipoMovimentacao;
 @Setter
 @Entity
 @Table(name = "MVC")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Movimentacao implements EntidadePersistente
 {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQMVC")
     @SequenceGenerator(name = "SEQMVC", sequenceName = "SEQMVC", allocationSize = 1)
     @Column(name = "MVCID")
+    @EqualsAndHashCode.Include
     private Long id;
 
     @ManyToOne

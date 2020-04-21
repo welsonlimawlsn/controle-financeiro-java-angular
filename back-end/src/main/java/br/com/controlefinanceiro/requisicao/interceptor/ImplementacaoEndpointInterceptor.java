@@ -1,14 +1,19 @@
 package br.com.controlefinanceiro.requisicao.interceptor;
 
+import javax.enterprise.inject.Any;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
+import java.util.UUID;
 
+import br.com.controlefinanceiro.dispositivo.dao.DispositivoDAO;
 import br.com.controlefinanceiro.exception.Erro;
 import br.com.controlefinanceiro.exception.InfraestruturaException;
+import br.com.controlefinanceiro.exception.NegocioException;
 import br.com.controlefinanceiro.funcionalidade.dao.FuncionalidadeDAO;
 import br.com.controlefinanceiro.funcionalidade.entidade.Funcionalidade;
 import br.com.controlefinanceiro.requisicao.anotacao.ImplementacaoEndpoint;
@@ -21,6 +26,10 @@ public class ImplementacaoEndpointInterceptor
 {
 
     @Inject
+    @Any
+    private Instance<RegraCodigoSeguranca> regras;
+
+    @Inject
     private FuncionalidadeDAO funcionalidadeDAO;
 
     @Inject
@@ -28,6 +37,9 @@ public class ImplementacaoEndpointInterceptor
 
     @Inject
     private HttpServletRequest httpServletRequest;
+
+    @Inject
+    private DispositivoDAO dispositivoDAO;
 
     @AroundInvoke
     public Object aroundInvoke(InvocationContext context) throws Exception
@@ -40,7 +52,55 @@ public class ImplementacaoEndpointInterceptor
         requisicao.setUsuario(tokenService.getUsuario());
         requisicao.setIpOrigem(httpServletRequest.getRemoteAddr());
 
+        setDispositivo(requisicao);
+
+        validaIpVersusDispositivo(requisicao);
+
+        determinaSePrecisaCodigoSeguraca(requisicao);
+
         return context.proceed();
+    }
+
+    private void validaIpVersusDispositivo(RequisicaoDTO<?> requisicao) throws NegocioException
+    {
+        if (requisicao.getDispositivo() != null)
+        {
+            if (!requisicao.getDispositivo().getIp().equals(requisicao.getIpOrigem()))
+            {
+                throw new NegocioException(Erro.DISPOSITIVO_INVALIDO);
+            }
+        }
+    }
+
+    private void determinaSePrecisaCodigoSeguraca(RequisicaoDTO<?> requisicao) throws NegocioException
+    {
+        if (requisicao.getCodigoSeguranca() != null && !requisicao.getCodigoSeguranca().isEmpty())
+        {
+            requisicao.setObrigadoCodigoSeguranca(false);
+            return;
+        }
+        for (RegraCodigoSeguranca regra : regras)
+        {
+            if (regra.verificaRegra(requisicao))
+            {
+                requisicao.setObrigadoCodigoSeguranca(true);
+                return;
+            }
+        }
+        requisicao.setObrigadoCodigoSeguranca(false);
+    }
+
+    private void setDispositivo(RequisicaoDTO<?> requisicao) throws NegocioException
+    {
+        String headerIdDispositivo = httpServletRequest.getHeader("Id-Dispositivo");
+        if (headerIdDispositivo != null && !headerIdDispositivo.isEmpty())
+        {
+            requisicao.setDispositivo(dispositivoDAO.buscaPorId(UUID.fromString(headerIdDispositivo)).orElse(null));
+            if (requisicao.getDispositivo() != null && !requisicao.getDispositivo().getIp().equals(requisicao.getIpOrigem()))
+            {
+                throw new NegocioException(Erro.DISPOSITIVO_INVALIDO);
+            }
+        }
     }
 
     private void validaMetodo(InvocationContext context) throws InfraestruturaException

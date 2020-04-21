@@ -13,4 +13,6 @@ public interface Funcionalidades
     int CONSULTA_CONTAS_USUARIO = 5;
 
     int RECUPERACAO_SENHA = 6;
+
+    int NOVO_DISPOSITIVO = 7;
 }

@@ -35,7 +35,9 @@ public enum Erro
     ERRO_AO_CRIAR_NOVO_CODIGO_SEGURANCA("024", Response.Status.INTERNAL_SERVER_ERROR),
     ERRO_PARSE_JSON("025", Response.Status.INTERNAL_SERVER_ERROR),
     CODIGO_SEGURANCA_INVALIDO("026", Response.Status.UNAUTHORIZED),
-    TAMANHO_MINIMO_SENHA("027", Response.Status.BAD_REQUEST);
+    TAMANHO_MINIMO_SENHA("027", Response.Status.BAD_REQUEST),
+    DISPOSITIVO_OBRIGATORIO("028", Response.Status.FORBIDDEN),
+    DISPOSITIVO_INVALIDO("029", Response.Status.FORBIDDEN);
 
     private final String codigo;
 

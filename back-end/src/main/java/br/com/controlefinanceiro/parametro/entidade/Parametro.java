@@ -1,5 +1,6 @@
 package br.com.controlefinanceiro.parametro.entidade;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,10 +15,12 @@ import br.com.controlefinanceiro.generico.entidade.EntidadePersistente;
 @Setter
 @Entity
 @Table(name = "PMT")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Parametro implements EntidadePersistente
 {
     @Id
     @Column(name = "PMTID")
+    @EqualsAndHashCode.Include
     private Integer id;
 
     @Column(name = "PMTDCC")

@@ -17,7 +17,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import br.com.controlefinanceiro.codigoconfirmacao.anotacao.RequerCodigoSeguranca;
 import br.com.controlefinanceiro.codigoconfirmacao.ejb.ProcessadorCodigoSeguranca;
 import br.com.controlefinanceiro.codigoconfirmacao.entidade.CodigoSeguranca;
 import br.com.controlefinanceiro.email.anotacao.EnviaEmail;
@@ -25,6 +24,7 @@ import br.com.controlefinanceiro.email.processador.ProcessadorEmail;
 import br.com.controlefinanceiro.exception.Erro;
 import br.com.controlefinanceiro.exception.InfraestruturaException;
 import br.com.controlefinanceiro.exception.NegocioException;
+import br.com.controlefinanceiro.funcionalidade.constante.Funcionalidades;
 import br.com.controlefinanceiro.relatorio.anotacao.EmiteRelatorio;
 import br.com.controlefinanceiro.relatorio.processador.ProcessadorRelatorio;
 import br.com.controlefinanceiro.requisicao.anotacao.ProcessadorSelector;
@@ -36,8 +36,6 @@ import br.com.controlefinanceiro.requisicao.servicos.RequisicaoService;
 @Stateless
 public class ProcessadorRequisicaoImpl implements ProcessadorRequisicao
 {
-    private final Map<Class<? extends Annotation>, Processa> outrosProcessadores = getOutrosProcessadores();
-
     private static final Validator VALIDATOR = Validation.buildDefaultValidatorFactory().getValidator();
 
     @EJB
@@ -53,23 +51,29 @@ public class ProcessadorRequisicaoImpl implements ProcessadorRequisicao
     @Inject
     private ProcessadorRelatorio processadorRelatorio;
 
+    private final Map<Class<? extends Annotation>, Processa> outrosProcessadores = getOutrosProcessadores();
+
     @Inject
     private RequisicaoService requisicaoService;
 
     @Override
-    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public <REQUISICAO extends RequisicaoDTO<RESPOSTA>, RESPOSTA extends RespostaDTO> RESPOSTA processa(REQUISICAO requisicao)
             throws InfraestruturaException, NegocioException
     {
         try
         {
-
             if (requisicao.getFuncionalidade() == null)
             {
                 throw new InfraestruturaException(Erro.FUNCIONALIDADE_NULA);
             }
 
-            CodigoSeguranca codigoSeguranca = null;
+            if (requisicao.getDispositivo() == null && !requisicao.getFuncionalidade().getId().equals(Funcionalidades.NOVO_DISPOSITIVO))
+            {
+                throw new NegocioException(Erro.DISPOSITIVO_OBRIGATORIO);
+            }
+
+            CodigoSeguranca codigoSeguranca;
 
             AbstractProcessadorRequisicao<REQUISICAO, RESPOSTA> processadorRequisicao =
                     (AbstractProcessadorRequisicao<REQUISICAO, RESPOSTA>) processadoresRequisicao
@@ -86,7 +90,7 @@ public class ProcessadorRequisicaoImpl implements ProcessadorRequisicao
                 requisicao = (REQUISICAO) requisicaoService.parseToDTO(codigoSeguranca.getRequisicao(), requisicao.getClass());
             }
 
-            if (requisicao.getClass().isAnnotationPresent(RequerCodigoSeguranca.class) && codigoSeguranca == null)
+            if (requisicao.isObrigadoCodigoSeguranca())
             {
                 processadorCodigoSeguranca.processaNovoCodigoSeguranca(requisicao);
                 throw new NegocioException(Erro.CODIGO_SEGURANCA_OBRIGATORIO);

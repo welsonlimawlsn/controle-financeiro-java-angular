@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RequisicaoService } from '../../../componentes/http/requisicao.service';
 import { DefaultService } from '../../../servicos';
+import { Mensagem, TipoMensagem } from '../../../componentes/mensagem-erro/mensagem.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -32,7 +33,13 @@ export class RecuperacaoSenhaComponent implements OnInit {
         this.requisicaoService.realizaRequisicao(
             this.requisicao.recuperaSenha(this.formularioNovaSenha.value), 'put'
         ).subscribe(() => {
-            this.router.navigate(['usuario', 'login'])
-        })
+            this.router.navigate(['usuario', 'login'], {
+                state: {
+                    mensagens: [
+                        new Mensagem('sua senha foi alterada com sucesso!', TipoMensagem.SUCCESS)
+                    ]
+                }
+            });
+        });
     }
 }

@@ -29,7 +29,7 @@ public class RequisicaoServiceImpl implements RequisicaoService
         requisicao.setFuncionalidade(funcionalidadeDAO.buscaPorId(requisicaoDTO.getFuncionalidade().getId()).orElse(null));
         requisicao.setConcluida(false);
         requisicao.setCorpo(criptografiaSimetricaService.criptografa(jsonService.serializa(requisicaoDTO)));
-        requisicao.setIpOrigem(requisicaoDTO.getIpOrigem());
+        requisicao.setDispositivo(requisicaoDTO.getDispositivo());
 
         return requisicao;
     }
@@ -41,7 +41,7 @@ public class RequisicaoServiceImpl implements RequisicaoService
 
         requisicaoDTO.setFuncionalidade(requisicao.getFuncionalidade());
         requisicaoDTO.setUsuario(requisicao.getUsuario());
-        requisicaoDTO.setIpOrigem(requisicao.getIpOrigem());
+        requisicaoDTO.setDispositivo(requisicao.getDispositivo());
 
         return requisicaoDTO;
     }

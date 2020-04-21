@@ -5,7 +5,6 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
@@ -27,13 +26,13 @@ import br.com.controlefinanceiro.exception.InfraestruturaException;
 
 public class CriptografiaSimetricaService
 {
-    private static byte[] IV;
-
-    private static SecretKey KEY;
-
     private static final Path LOCAL_IV;
 
     private static final Path LOCAL_KEY;
+
+    private static byte[] IV;
+
+    private static SecretKey KEY;
 
     static
     {
@@ -41,6 +40,35 @@ public class CriptografiaSimetricaService
         LOCAL_KEY = Paths.get("/home/welson/key.key");
         KEY = carregaSecretKey();
         IV = carregaIV();
+    }
+
+    private static byte[] carregaIV()
+    {
+        return carrega(LOCAL_IV, byte[].class);
+    }
+
+    private static SecretKey carregaSecretKey()
+    {
+        return carrega(LOCAL_KEY, SecretKey.class);
+    }
+
+    private static <T> T carrega(Path path, Class<T> tClass)
+    {
+        if (Files.exists(path))
+        {
+            try
+            {
+                ObjectInputStream objectInputStream = new ObjectInputStream(Files.newInputStream(path));
+                T secretKey = (T) objectInputStream.readObject();
+                objectInputStream.close();
+                return secretKey;
+            }
+            catch (IOException | ClassNotFoundException e)
+            {
+                throw new RuntimeException(e);
+            }
+        }
+        return null;
     }
 
     public String criptografa(String texto) throws InfraestruturaException
@@ -72,35 +100,6 @@ public class CriptografiaSimetricaService
         {
             throw new InfraestruturaException(Erro.ERRO_INTERNO, e);
         }
-    }
-
-    private static byte[] carregaIV()
-    {
-        return carrega(LOCAL_IV, byte[].class);
-    }
-
-    private static SecretKey carregaSecretKey()
-    {
-        return carrega(LOCAL_KEY, SecretKey.class);
-    }
-
-    private static <T> T carrega(Path path, Class<T> tClass)
-    {
-        if (Files.exists(path))
-        {
-            try
-            {
-                ObjectInputStream objectInputStream = new ObjectInputStream(Files.newInputStream(path));
-                T secretKey = (T) objectInputStream.readObject();
-                objectInputStream.close();
-                return secretKey;
-            }
-            catch (IOException | ClassNotFoundException e)
-            {
-                throw new RuntimeException(e);
-            }
-        }
-        return null;
     }
 
     public void criaChaves()

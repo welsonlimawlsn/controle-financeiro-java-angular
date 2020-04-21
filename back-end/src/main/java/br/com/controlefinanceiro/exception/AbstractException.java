@@ -9,8 +9,6 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import br.com.controlefinanceiro.configuracao.NegocioExceptionMapper;
-
 @Getter
 @ApplicationException(rollback = true)
 public abstract class AbstractException extends Exception
@@ -71,8 +69,10 @@ public abstract class AbstractException extends Exception
 
     @Getter
     @Setter
-    public static class Error {
+    public static class Error
+    {
         private String mensagem;
+
         private String codigo;
 
         public Error(String mensagem, String codigo)

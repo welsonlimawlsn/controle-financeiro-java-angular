@@ -71,7 +71,8 @@ public class ProcessadorCodigoSegurancaImpl implements ProcessadorCodigoSeguranc
 
     private List<String> getEmail(RequisicaoDTO<?> requisicaoDTO)
     {
-        if (requisicaoDTO.getUsuario() != null) {
+        if (requisicaoDTO.getUsuario() != null)
+        {
             return Collections.singletonList(requisicaoDTO.getUsuario().getEmail());
         }
         return Collections.singletonList(requisicaoDTO.getEmail());
@@ -82,7 +83,7 @@ public class ProcessadorCodigoSegurancaImpl implements ProcessadorCodigoSeguranc
     {
         CodigoSeguranca codigoSeguranca = codigoSegurancaDAO
                 .buscaCodigoSegurancaValido(requisicao.getCodigoSeguranca(), requisicao.getFuncionalidade(),
-                        requisicao.getIpOrigem(), requisicao.getUsuario())
+                        requisicao.getDispositivo(), requisicao.getUsuario())
                 .orElseThrow(() -> new NegocioException(Erro.CODIGO_SEGURANCA_INVALIDO));
 
         if (codigoSeguranca.getUsuario() != null && !codigoSeguranca.getUsuario().equals(requisicao.getUsuario()))
@@ -105,7 +106,7 @@ public class ProcessadorCodigoSegurancaImpl implements ProcessadorCodigoSeguranc
         codigoSeguranca.setUsado(false);
         codigoSeguranca.setUsuario(requisicao.getUsuario());
         codigoSeguranca.setValidade(ZonedDateTime.now().plusMinutes(TEMPO_EXPIRACAO_CODIGO_SEGURANCA));
-        codigoSeguranca.setIpOrigem(requisicao.getIpOrigem());
+        codigoSeguranca.setDispositivo(requisicao.getDispositivo());
 
         codigoSeguranca.geraCodigo(QUANTIDADE_NUMEROS);
 

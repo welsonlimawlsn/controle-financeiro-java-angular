@@ -1,5 +1,6 @@
 package br.com.controlefinanceiro.usuario.entidade;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,10 +16,11 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.controlefinanceiro.conta.entidade.Conta;
+import br.com.controlefinanceiro.dispositivo.entidade.Dispositivo;
 import br.com.controlefinanceiro.generico.entidade.EntidadePersistente;
 import br.com.controlefinanceiro.grupo.entidade.Grupo;
 
@@ -30,12 +32,14 @@ import br.com.controlefinanceiro.grupo.entidade.Grupo;
         @NamedQuery(name = "quantidadeRegistrosPorEmail", query = "SELECT COUNT (u.email) FROM Usuario u WHERE u.email = :email"),
         @NamedQuery(name = "buscaPorEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email")
 })
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Usuario implements EntidadePersistente
 {
     @Id
     @GeneratedValue(generator = "SEQUSR", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "SEQUSR", sequenceName = "SEQUSR", allocationSize = 1)
     @Column(name = "USRID")
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name = "USRNME")
@@ -56,4 +60,24 @@ public class Usuario implements EntidadePersistente
 
     @OneToMany(mappedBy = "usuario")
     private List<Conta> contas;
+
+    @OneToMany(mappedBy = "usuario")
+    private List<Dispositivo> dispositivos;
+
+    public void addDispositivo(Dispositivo dispositivo)
+    {
+        if (dispositivos == null)
+        {
+            dispositivos = new ArrayList<>();
+        }
+        if (!dispositivos.contains(dispositivo))
+        {
+            dispositivos.add(dispositivo);
+        }
+    }
+
+    public boolean temEsseDispositivo(Dispositivo dispositivo)
+    {
+        return dispositivos.contains(dispositivo);
+    }
 }

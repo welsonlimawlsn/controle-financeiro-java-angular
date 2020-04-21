@@ -1,5 +1,6 @@
 package br.com.controlefinanceiro.conta.entidade;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Objects;
 
 import br.com.controlefinanceiro.generico.entidade.EntidadePersistente;
 import br.com.controlefinanceiro.movimentacao.entidade.Movimentacao;
@@ -26,12 +26,14 @@ import br.com.controlefinanceiro.usuario.entidade.Usuario;
 @Setter
 @Entity
 @Table(name = "CTA")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Conta implements EntidadePersistente
 {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQCTA")
     @SequenceGenerator(name = "SEQCTA", sequenceName = "SEQCTA", allocationSize = 1)
     @Column(name = "CTAID")
+    @EqualsAndHashCode.Include
     private Long id;
 
     @Column(name = "CTANME")
@@ -49,19 +51,4 @@ public class Conta implements EntidadePersistente
 
     @OneToMany(mappedBy = "conta")
     private List<Saldo> saldos;
-
-    @Override
-    public boolean equals(Object o)
-    {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Conta conta = (Conta) o;
-        return id.equals(conta.id);
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return Objects.hash(id);
-    }
 }

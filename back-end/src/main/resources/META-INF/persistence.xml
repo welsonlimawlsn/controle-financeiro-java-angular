@@ -17,6 +17,7 @@
         <class>br.com.controlefinanceiro.saldo.entidade.Saldo</class>
         <class>br.com.controlefinanceiro.requisicao.entidade.Requisicao</class>
         <class>br.com.controlefinanceiro.codigoconfirmacao.entidade.CodigoSeguranca</class>
+        <class>br.com.controlefinanceiro.dispositivo.entidade.Dispositivo</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.show_sql" value="true"/>

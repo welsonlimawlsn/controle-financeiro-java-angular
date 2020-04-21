@@ -1,5 +1,6 @@
 package br.com.controlefinanceiro.requisicao.entidade;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.com.controlefinanceiro.dispositivo.entidade.Dispositivo;
 import br.com.controlefinanceiro.funcionalidade.entidade.Funcionalidade;
 import br.com.controlefinanceiro.generico.entidade.EntidadePersistente;
 import br.com.controlefinanceiro.usuario.entidade.Usuario;
@@ -20,12 +22,14 @@ import br.com.controlefinanceiro.usuario.entidade.Usuario;
 @Setter
 @Entity
 @Table(name = "RQC")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Requisicao implements EntidadePersistente
 {
     @Id
     @GeneratedValue(generator = "SEQRQC")
     @SequenceGenerator(name = "SEQRQC", allocationSize = 1, sequenceName = "SEQRQC")
     @Column(name = "RQCID")
+    @EqualsAndHashCode.Include
     private Long id;
 
     @ManyToOne
@@ -42,8 +46,9 @@ public class Requisicao implements EntidadePersistente
     @Column(name = "RQCCCD")
     private Boolean concluida;
 
-    @Column(name = "RQCIPO")
-    private String ipOrigem;
+    @ManyToOne
+    @JoinColumn(name = "RQCDPVID")
+    private Dispositivo dispositivo;
 
     public void conclui()
     {

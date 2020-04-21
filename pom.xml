@@ -16,6 +16,7 @@
     </modules>
 
     <dependencies>
+        <!--Lista de depedencias-->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>

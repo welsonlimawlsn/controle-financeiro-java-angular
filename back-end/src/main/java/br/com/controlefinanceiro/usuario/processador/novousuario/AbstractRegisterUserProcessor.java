@@ -35,6 +35,8 @@ public abstract class AbstractRegisterUserProcessor<REQUISICAO extends AbstractN
 
         resposta.setUsuario(usuario);
         resposta.setEmail(requisicao.getEmail());
+
+        requisicao.setUsuario(usuario);
     }
 
     @Override

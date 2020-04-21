@@ -9,9 +9,11 @@ import { LoadingService } from './componentes/loading/loading.service';
 import { RequisicaoService } from './componentes/http/requisicao.service';
 import { BASE_PATH, DefaultService } from './servicos';
 import { environment } from '../environments/environment';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CustomErrorHandler } from './custom-error-handler';
 import { MensagemService } from './componentes/mensagem-erro/mensagem.service';
+import { SessaoService } from './componentes/seguranca/sessao.service';
+import { CustomHttpInterceptorService } from './componentes/http/custom-http-interceptor.service';
 
 @NgModule({
     declarations: [
@@ -29,6 +31,7 @@ import { MensagemService } from './componentes/mensagem-erro/mensagem.service';
         RequisicaoService,
         DefaultService,
         MensagemService,
+        SessaoService,
         {
             provide: BASE_PATH,
             useValue: environment.baseUrl
@@ -36,6 +39,11 @@ import { MensagemService } from './componentes/mensagem-erro/mensagem.service';
         {
             provide: ErrorHandler,
             useClass: CustomErrorHandler
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: CustomHttpInterceptorService,
+            multi: true
         }
     ],
     bootstrap: [AppComponent]
