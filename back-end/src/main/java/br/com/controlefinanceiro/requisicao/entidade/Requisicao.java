@@ -10,8 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import java.util.UUID;
 
 import br.com.controlefinanceiro.dispositivo.entidade.Dispositivo;
 import br.com.controlefinanceiro.funcionalidade.entidade.Funcionalidade;
@@ -26,11 +29,9 @@ import br.com.controlefinanceiro.usuario.entidade.Usuario;
 public class Requisicao implements EntidadePersistente
 {
     @Id
-    @GeneratedValue(generator = "SEQRQC")
-    @SequenceGenerator(name = "SEQRQC", allocationSize = 1, sequenceName = "SEQRQC")
     @Column(name = "RQCID")
     @EqualsAndHashCode.Include
-    private Long id;
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "RQCFCNID")
@@ -49,6 +50,11 @@ public class Requisicao implements EntidadePersistente
     @ManyToOne
     @JoinColumn(name = "RQCDPVID")
     private Dispositivo dispositivo;
+
+    @PrePersist
+    private void prePersist() {
+        id = UUID.randomUUID();
+    }
 
     public void conclui()
     {

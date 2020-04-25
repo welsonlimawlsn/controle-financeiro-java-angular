@@ -15,6 +15,7 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import br.com.controlefinanceiro.exception.Erro;
 import br.com.controlefinanceiro.exception.InfraestruturaException;
@@ -56,7 +57,7 @@ public class TokenService
                     throw new NegocioException(Erro.TOKEN_INVALIDO);
                 }
 
-                long idUsuario = Long.parseLong(body.getSubject());
+                UUID idUsuario = UUID.fromString(body.getSubject());
 
                 return usuarioDAO.buscaPorId(idUsuario).orElseThrow(() -> new InfraestruturaException(Erro.USUARIO_NAO_ENCONTRADO));
             }

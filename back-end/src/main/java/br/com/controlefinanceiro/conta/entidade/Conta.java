@@ -12,10 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Random;
+import java.util.UUID;
 
 import br.com.controlefinanceiro.generico.entidade.EntidadePersistente;
 import br.com.controlefinanceiro.movimentacao.entidade.Movimentacao;
@@ -30,11 +33,9 @@ import br.com.controlefinanceiro.usuario.entidade.Usuario;
 public class Conta implements EntidadePersistente
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQCTA")
-    @SequenceGenerator(name = "SEQCTA", sequenceName = "SEQCTA", allocationSize = 1)
     @Column(name = "CTAID")
     @EqualsAndHashCode.Include
-    private Long id;
+    private UUID id;
 
     @Column(name = "CTANME")
     private String nome;
@@ -51,4 +52,9 @@ public class Conta implements EntidadePersistente
 
     @OneToMany(mappedBy = "conta")
     private List<Saldo> saldos;
+
+    @PrePersist
+    public void prePersist() {
+        id = UUID.randomUUID();
+    }
 }

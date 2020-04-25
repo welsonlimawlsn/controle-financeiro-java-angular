@@ -3,6 +3,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { RequisicaoService } from '../../../componentes/http/requisicao.service';
 import { DefaultService } from '../../../servicos';
+import { switchMap } from 'rxjs/operators';
+import { SessaoService } from '../../../componentes/seguranca/sessao.service';
 
 @Component({
     selector: 'app-novo-usuario',
@@ -43,7 +45,8 @@ export class NovoUsuarioComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private requisicaoService: RequisicaoService,
-        private requisicao: DefaultService
+        private requisicao: DefaultService,
+        private sessaoService: SessaoService
     ) {
     }
 
@@ -70,7 +73,25 @@ export class NovoUsuarioComponent implements OnInit {
     criaConta() {
         this.requisicaoService.realizaRequisicao(
             this.requisicao.novoUsuario(this.formularioCadastro.value)
-        ).subscribe((response) => console.log("chegou aqui: ", new Date()))
+        ).pipe(
+            switchMap(
+                () => this.requisicaoService.realizaRequisicao(
+                    this.requisicao.loginUsuario({
+                        email: this.formularioCadastro.value.email,
+                        senha: this.formularioCadastro.value.senha
+                    })
+                )
+            ),
+            switchMap(resposta => {
+                this.sessaoService.novaSessao(resposta);
+                return this.requisicaoService.realizaRequisicao(
+                    this.requisicao.novaConta({
+                        nome: 'Carteira',
+                        valorInicial: 0
+                    })
+                );
+            })
+        ).subscribe(response => console.log(response));
     }
 
     corrige() {

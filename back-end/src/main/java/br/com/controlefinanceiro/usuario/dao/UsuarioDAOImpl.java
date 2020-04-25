@@ -2,11 +2,12 @@ package br.com.controlefinanceiro.usuario.dao;
 
 import javax.persistence.TypedQuery;
 import java.util.Optional;
+import java.util.UUID;
 
 import br.com.controlefinanceiro.generico.dao.DAOImpl;
 import br.com.controlefinanceiro.usuario.entidade.Usuario;
 
-public class UsuarioDAOImpl extends DAOImpl<Usuario, Long> implements UsuarioDAO
+public class UsuarioDAOImpl extends DAOImpl<Usuario, UUID> implements UsuarioDAO
 {
     @Override
     public boolean existeEmail(String email)

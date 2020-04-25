@@ -11,9 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import br.com.controlefinanceiro.categoria.entidade.Categoria;
 import br.com.controlefinanceiro.conta.entidade.Conta;
@@ -28,11 +30,9 @@ import br.com.controlefinanceiro.movimentacao.enums.TipoMovimentacao;
 public class Movimentacao implements EntidadePersistente
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQMVC")
-    @SequenceGenerator(name = "SEQMVC", sequenceName = "SEQMVC", allocationSize = 1)
     @Column(name = "MVCID")
     @EqualsAndHashCode.Include
-    private Long id;
+    private UUID id;
 
     @ManyToOne
     @JoinColumn(name = "MVCCTA")
@@ -47,4 +47,9 @@ public class Movimentacao implements EntidadePersistente
     @ManyToOne
     @JoinColumn(name = "MVCCGR")
     private Categoria categoria;
+
+    @PrePersist
+    public void prePersist() {
+        id = UUID.randomUUID();
+    }
 }

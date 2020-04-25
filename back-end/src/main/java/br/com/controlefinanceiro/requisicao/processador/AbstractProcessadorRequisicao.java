@@ -8,11 +8,15 @@ import br.com.controlefinanceiro.exception.InfraestruturaException;
 import br.com.controlefinanceiro.exception.NegocioException;
 import br.com.controlefinanceiro.requisicao.dto.RequisicaoDTO;
 import br.com.controlefinanceiro.requisicao.dto.RespostaDTO;
+import br.com.controlefinanceiro.usuario.dao.UsuarioDAO;
 
 public abstract class AbstractProcessadorRequisicao<REQUISICAO extends RequisicaoDTO<RESPOSTA>, RESPOSTA extends RespostaDTO>
 {
     @Inject
     private DispositivoDAO dispositivoDAO;
+
+    @Inject
+    private UsuarioDAO usuarioDAO;
 
     public RESPOSTA processa(REQUISICAO requisicao) throws InfraestruturaException, NegocioException
     {
@@ -31,7 +35,7 @@ public abstract class AbstractProcessadorRequisicao<REQUISICAO extends Requisica
     {
         if (requisicao.getUsuario() != null)
         {
-            dispositivoDAO.buscaPorId(requisicao.getDispositivo().getId()).get().setUsuario(requisicao.getUsuario());
+            requisicao.getUsuario().addDispositivo(dispositivoDAO.buscaPorId(requisicao.getDispositivo().getId()).get());
         }
     }
 

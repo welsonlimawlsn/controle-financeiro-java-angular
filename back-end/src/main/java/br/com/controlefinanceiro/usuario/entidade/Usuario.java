@@ -6,18 +6,21 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 import br.com.controlefinanceiro.conta.entidade.Conta;
 import br.com.controlefinanceiro.dispositivo.entidade.Dispositivo;
@@ -36,11 +39,9 @@ import br.com.controlefinanceiro.grupo.entidade.Grupo;
 public class Usuario implements EntidadePersistente
 {
     @Id
-    @GeneratedValue(generator = "SEQUSR", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "SEQUSR", sequenceName = "SEQUSR", allocationSize = 1)
     @Column(name = "USRID")
     @EqualsAndHashCode.Include
-    private Long id;
+    private UUID id;
 
     @Column(name = "USRNME")
     private String nome;
@@ -61,19 +62,31 @@ public class Usuario implements EntidadePersistente
     @OneToMany(mappedBy = "usuario")
     private List<Conta> contas;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<Dispositivo> dispositivos;
+    @ManyToMany
+    @JoinTable(
+            name = "USRDPV",
+            joinColumns = {
+                    @JoinColumn(name = "USRID")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "DPVID")
+            }
+    )
+    private Set<Dispositivo> dispositivos;
+
+    @PrePersist
+    public void prePersist()
+    {
+        id = UUID.randomUUID();
+    }
 
     public void addDispositivo(Dispositivo dispositivo)
     {
         if (dispositivos == null)
         {
-            dispositivos = new ArrayList<>();
+            dispositivos = new HashSet<>();
         }
-        if (!dispositivos.contains(dispositivo))
-        {
-            dispositivos.add(dispositivo);
-        }
+        dispositivos.add(dispositivo);
     }
 
     public boolean temEsseDispositivo(Dispositivo dispositivo)

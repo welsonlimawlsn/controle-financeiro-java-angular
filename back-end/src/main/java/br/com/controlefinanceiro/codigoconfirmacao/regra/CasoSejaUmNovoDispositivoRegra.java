@@ -24,14 +24,7 @@ public class CasoSejaUmNovoDispositivoRegra implements RegraCodigoSeguranca
             {
                 throw new NegocioException(Erro.SEM_PERMISSAO);
             }
-            if (!requisicao.getDispositivo().getUsuario().equals(requisicao.getUsuario()))
-            {
-                if (requisicao.getDispositivo().getUsuario() != null)
-                {
-                    throw new NegocioException(Erro.SEM_PERMISSAO);
-                }
-                return true;
-            }
+            return !requisicao.getDispositivo().getUsuarios().contains(requisicao.getUsuario());
         }
         else
         {

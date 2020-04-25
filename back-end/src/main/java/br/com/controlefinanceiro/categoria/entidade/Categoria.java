@@ -8,8 +8,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -19,12 +21,15 @@ import javax.persistence.Table;
 public class Categoria
 {
     @Id
-    @GeneratedValue(generator = "SEQCGR")
-    @SequenceGenerator(name = "SEQCGR", sequenceName = "SEQCGR", allocationSize = 1)
     @Column(name = "CGRID")
     @EqualsAndHashCode.Include
-    private Integer id;
+    private UUID id;
 
     @Column(name = "CGRNME")
     private String nome;
+
+    @PrePersist
+    public void prePersist() {
+        id = UUID.randomUUID();
+    }
 }
