@@ -4,6 +4,7 @@ import { RequisicaoService } from '../../../componentes/http/requisicao.service'
 import { DefaultService, UsuarioDTO } from '../../../servicos';
 import { SessaoService } from '../../../componentes/seguranca/sessao.service';
 import { Router } from '@angular/router';
+import { Validadores } from '../../../validadores';
 
 @Component({
     selector: 'app-login-usuario',
@@ -27,7 +28,7 @@ export class LoginUsuarioComponent implements OnInit {
 
     ngOnInit(): void {
         this.formularioLogin = this.fb.group({
-            email: ['', Validators.required],
+            email: ['', [Validators.required, Validadores.email]],
             senha: ['', Validators.required]
         });
     }

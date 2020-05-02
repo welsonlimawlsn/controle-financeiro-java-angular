@@ -54,6 +54,7 @@ export class InputTextComponent implements OnInit, ControlValueAccessor, AfterVi
     @Input() formControlName: string;
     @Input() autoFocus: boolean = false;
     @Input() password: boolean = false;
+    @Input() email: boolean = false;
     texto: string;
     oldValue: string = '';
     focused: boolean = false;
@@ -119,5 +120,9 @@ export class InputTextComponent implements OnInit, ControlValueAccessor, AfterVi
 
     togglePassword(event: boolean) {
         this.mostraSenha = event;
+    }
+
+    getType() {
+        return this.email ? 'email' : 'text';
     }
 }

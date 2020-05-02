@@ -4,7 +4,7 @@
     <app-mensagem-erro></app-mensagem-erro>
 
     <form [formGroup]="formularioLogin">
-        <app-input-text id="email" label="e-mail" [formGroup]="formularioLogin" formControlName="email"></app-input-text>
+        <app-input-text [email]="true" id="email" label="e-mail" [formGroup]="formularioLogin" formControlName="email"></app-input-text>
         <app-input-text id="senha" label="senha" [formGroup]="formularioLogin" formControlName="senha"
                         [password]="true"></app-input-text>
         <div class="texto-senha">esqueceu a sua senha? <a routerLink="/usuario/recuperacao-senha">crie outra aqui</a></div>

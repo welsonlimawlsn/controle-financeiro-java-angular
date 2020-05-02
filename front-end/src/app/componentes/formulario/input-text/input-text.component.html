@@ -3,7 +3,7 @@
         <label (click)="inputElement.focus()" [@comportamentoLabel]="labelRecolhida ? 'labelRecolhida' : 'labelNormal'"
                [for]="id">{{label}}</label>
         <input #inputElement [name]="id" autocomplete="off" (focus)="focus()" (blur)="blur()" (keydown)="change()" (keyup)="change()"
-               [type]="!password || mostraSenha ? 'text' : 'password'"
+               [type]="!password || mostraSenha ? getType() : 'password'"
                [(ngModel)]="texto" class="form-control" [class.is-invalid]="errors() && dirty" [id]="id">
 
         <app-toggle-password *ngIf="password" (onClick)="togglePassword($event)" [mostraSenha]="mostraSenha"></app-toggle-password>
@@ -22,6 +22,4 @@
             campo deve ter no máximo {{errors().maxlength.requiredLength}} caracteres.
         </div>
     </div>
-
-    <!--    {{errors()|json}}-->
 </div>

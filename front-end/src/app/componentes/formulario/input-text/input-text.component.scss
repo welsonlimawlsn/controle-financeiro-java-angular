@@ -49,3 +49,10 @@ label {
 .mensagem-erro {
   height: 1rem;
 }
+.mensagem-erro > div {
+  display: none;
+}
+
+.mensagem-erro > div:first-child {
+  display: block;
+}

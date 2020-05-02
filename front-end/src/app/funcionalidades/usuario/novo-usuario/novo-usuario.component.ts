@@ -6,6 +6,7 @@ import { DefaultService } from '../../../servicos';
 import { switchMap } from 'rxjs/operators';
 import { SessaoService } from '../../../componentes/seguranca/sessao.service';
 import { Router } from '@angular/router';
+import { Validadores } from '../../../validadores';
 
 @Component({
     selector: 'app-novo-usuario',
@@ -56,7 +57,7 @@ export class NovoUsuarioComponent implements OnInit {
         this.controls = [
             this.fb.control('', Validators.required),
             this.fb.control('', Validators.required),
-            this.fb.control('', [Validators.required, Validators.email]),
+            this.fb.control('', [Validators.required, Validadores.email]),
             this.fb.control('', Validators.required),
         ];
 

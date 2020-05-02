@@ -19,7 +19,7 @@
             <div class="etapa" @transicao *ngIf="etapaAtual == EMAIL">
                 <h2>meu e-mail é</h2>
                 <div class="mb-5">
-                    <app-input-text id="email" formControlName="email" [formGroup]="formularioCadastro" [autoFocus]="true"></app-input-text>
+                    <app-input-text [email]="true" id="email" formControlName="email" [formGroup]="formularioCadastro" [autoFocus]="true"></app-input-text>
                 </div>
             </div>
             <div class="etapa" *ngIf="etapaAtual == SENHA">
