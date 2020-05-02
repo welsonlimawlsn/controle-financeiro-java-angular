@@ -5,6 +5,7 @@ import { RequisicaoService } from '../../../componentes/http/requisicao.service'
 import { DefaultService } from '../../../servicos';
 import { switchMap } from 'rxjs/operators';
 import { SessaoService } from '../../../componentes/seguranca/sessao.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-novo-usuario',
@@ -46,7 +47,8 @@ export class NovoUsuarioComponent implements OnInit {
         private fb: FormBuilder,
         private requisicaoService: RequisicaoService,
         private requisicao: DefaultService,
-        private sessaoService: SessaoService
+        private sessaoService: SessaoService,
+        private router: Router
     ) {
     }
 
@@ -91,7 +93,7 @@ export class NovoUsuarioComponent implements OnInit {
                     })
                 );
             })
-        ).subscribe(response => console.log(response));
+        ).subscribe(response => this.router.navigate(['dashboard']));
     }
 
     corrige() {

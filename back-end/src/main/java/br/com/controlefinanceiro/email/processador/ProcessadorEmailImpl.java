@@ -16,6 +16,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.io.StringWriter;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -157,7 +158,7 @@ public class ProcessadorEmailImpl implements ProcessadorEmail
 
             context.put("resposta", resposta);
 
-            Template template = Velocity.getTemplate(vm);
+            Template template = Velocity.getTemplate("vms" + File.separator + "email" + File.separator + vm);
 
             StringWriter sw = new StringWriter();
 

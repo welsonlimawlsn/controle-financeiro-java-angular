@@ -13,6 +13,7 @@ export class SessaoService {
     constructor() {
         this._dispositivo = localStorage.getItem('dispositivo');
         this._token = JSON.parse(sessionStorage.getItem('token'));
+        this._usuario = JSON.parse(sessionStorage.getItem('usuario'));
     }
 
     novoDispositivo(resposta: NovoDispositivoRespostaDTO) {

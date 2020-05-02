@@ -5,4 +5,6 @@ public interface Parametros
     Integer CHAVE_TOKEN_JWT = 1;
 
     Integer EXPIRACAO_TOKEN_JWT = 2;
+
+    Integer ACCESS_CONTROL = 3;
 }

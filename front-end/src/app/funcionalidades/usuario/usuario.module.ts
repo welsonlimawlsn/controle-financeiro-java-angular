@@ -6,20 +6,24 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentesModule } from '../../componentes/componentes.module';
 import { LoginUsuarioComponent } from './login-usuario/login-usuario.component';
 import { RecuperacaoSenhaComponent } from './recuperacao-senha/recuperacao-senha.component';
+import { LoginCadastroAuthGuard } from '../../login-cadastro-auth-guard.service';
 
 
 const routes: Routes = [
     {
         path: 'novo',
-        component: NovoUsuarioComponent
+        component: NovoUsuarioComponent,
+        canActivate: [LoginCadastroAuthGuard]
     },
     {
         path: 'login',
-        component: LoginUsuarioComponent
+        component: LoginUsuarioComponent,
+        canActivate: [LoginCadastroAuthGuard]
     },
     {
         path: 'recuperacao-senha',
-        component: RecuperacaoSenhaComponent
+        component: RecuperacaoSenhaComponent,
+        canActivate: [LoginCadastroAuthGuard]
     }
 ];
 

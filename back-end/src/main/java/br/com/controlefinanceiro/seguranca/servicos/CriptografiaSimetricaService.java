@@ -7,6 +7,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -21,6 +22,7 @@ import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
+import br.com.controlefinanceiro.configuracao.PropriedadesService;
 import br.com.controlefinanceiro.exception.Erro;
 import br.com.controlefinanceiro.exception.InfraestruturaException;
 
@@ -36,8 +38,9 @@ public class CriptografiaSimetricaService
 
     static
     {
-        LOCAL_IV = Paths.get("/home/welson/iv.key");
-        LOCAL_KEY = Paths.get("/home/welson/key.key");
+        String path = PropriedadesService.getProperty(PropriedadesService.Constantes.PATH_CHAVE_CRIPTOGRAFIA);
+        LOCAL_IV = Paths.get(path + File.separator + "iv.key");
+        LOCAL_KEY = Paths.get(path + File.separator + "key.key");
         KEY = carregaSecretKey();
         IV = carregaIV();
     }

@@ -9,9 +9,15 @@ import { TogglePasswordComponent } from './formulario/toggle-password/toggle-pas
 import { CodigoSegurancaComponent } from './seguranca/codigo-seguranca/codigo-seguranca.component';
 
 
-
 @NgModule({
-    declarations: [InputTextComponent, LoadingComponent, MensagemComponent, InformacaoComponent, TogglePasswordComponent, CodigoSegurancaComponent],
+    declarations: [
+        InputTextComponent,
+        LoadingComponent,
+        MensagemComponent,
+        InformacaoComponent,
+        TogglePasswordComponent,
+        CodigoSegurancaComponent
+    ],
     exports: [
         InputTextComponent,
         LoadingComponent,
@@ -25,4 +31,5 @@ import { CodigoSegurancaComponent } from './seguranca/codigo-seguranca/codigo-se
         ReactiveFormsModule
     ]
 })
-export class ComponentesModule { }
+export class ComponentesModule {
+}

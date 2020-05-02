@@ -29,6 +29,9 @@ values (2, 'Usuário padrão');
 insert into pmt (pmtid, pmtdcc, pmtvlr)
 VALUES (2, 'Minutos para expiração do token', '60');
 
+insert into pmt (pmtid, pmtdcc, pmtvlr)
+VALUES (3, 'Access Control Origin', '*');
+
 
 -- GRUPO X FUNCIONALIDADE
 
