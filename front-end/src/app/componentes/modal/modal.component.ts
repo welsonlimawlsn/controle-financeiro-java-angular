@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ModalService } from './modal.service';
+import { AcaoModal, ModalService } from './modal.service';
 
 @Component({
     selector: 'app-modal',
@@ -21,10 +21,12 @@ export class ModalComponent implements OnInit {
     }
 
     confirma() {
+        this.modalService.ultimaAcao = AcaoModal.CONFIRMA;
         this.onConfirma.emit();
     }
 
     cancela() {
+        this.modalService.ultimaAcao = AcaoModal.CANCELA;
         this.modalService.close()
         this.onCancela.emit();
     }

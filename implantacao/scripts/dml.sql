@@ -17,6 +17,9 @@ values (6, false, 'Permite recuperar a senha esquecida', 'Recuperar senha', null
 insert into fcn (fcnid, fcnatcogr, fcndcc, fcnnme, fcnptdtds)
 values (7, false, 'Permite registrar um novo dispositivo', 'Novo Dispositivo', null);
 
+insert into fcn (fcnid, fcnatcogr, fcndcc, fcnnme, fcnptdtds)
+values (8, true, 'Permite remover uma conta', 'Remove conta', false);
+
 -- GRUPOS
 
 insert into gpo(gpoid, gponme)
@@ -40,3 +43,7 @@ VALUES (2, 4);
 
 insert into gpofcn (gpoid, fcnid)
 VALUES (2, 5);
+
+
+insert into gpofcn (gpoid, fcnid)
+VALUES (2, 8);

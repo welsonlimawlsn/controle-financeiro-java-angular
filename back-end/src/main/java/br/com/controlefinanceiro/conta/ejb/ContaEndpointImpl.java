@@ -7,6 +7,8 @@ import br.com.controlefinanceiro.conta.dto.consulta.ConsultaContasUsuarioRequisi
 import br.com.controlefinanceiro.conta.dto.consulta.ConsultaContasUsuarioRespostaDTO;
 import br.com.controlefinanceiro.conta.dto.nova.NovaContaRequisicaoDTO;
 import br.com.controlefinanceiro.conta.dto.nova.NovaContaRespostaDTO;
+import br.com.controlefinanceiro.conta.dto.remocao.RemoveContaUsuarioRequisicaoDTO;
+import br.com.controlefinanceiro.conta.dto.remocao.RemoveContaUsuarioRespostaDTO;
 import br.com.controlefinanceiro.conta.endpoint.ContaEndpoint;
 import br.com.controlefinanceiro.exception.InfraestruturaException;
 import br.com.controlefinanceiro.exception.NegocioException;
@@ -32,6 +34,14 @@ public class ContaEndpointImpl implements ContaEndpoint
     @Override
     public ConsultaContasUsuarioRespostaDTO consultaContasUsuario(
             @Funcionalidade(Funcionalidades.CONSULTA_CONTAS_USUARIO) ConsultaContasUsuarioRequisicaoDTO requisicao)
+            throws InfraestruturaException, NegocioException
+    {
+        return processadorRequisicao.processa(requisicao);
+    }
+
+    @Override
+    public RemoveContaUsuarioRespostaDTO removeContaUsuario(
+            @Funcionalidade(Funcionalidades.REMOVE_CONTA_USUARIO) RemoveContaUsuarioRequisicaoDTO requisicao)
             throws InfraestruturaException, NegocioException
     {
         return processadorRequisicao.processa(requisicao);

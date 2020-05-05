@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ContaDTO, DefaultService } from '../../../servicos';
 import { RequisicaoService } from '../../../componentes/http/requisicao.service';
-import { ModalService } from '../../../componentes/modal/modal.service';
+import { AcaoModal, ModalService } from '../../../componentes/modal/modal.service';
 import { NovaContaComponent } from './nova-conta/nova-conta.component';
+import { ConfirmacaoDeleteComponent } from './confirmacao-delete/confirmacao-delete.component';
 
 @Component({
     selector: 'app-contas',
@@ -26,7 +27,21 @@ export class ContasComponent implements OnInit {
     }
 
     novaConta() {
-        this.modalService.show(NovaContaComponent);
+        this.modalService.show(NovaContaComponent).subscribe(() => {
+            if (this.modalService.ultimaAcao == AcaoModal.CONFIRMA) {
+                this.ngOnInit();
+            }
+        })
+    }
+
+    excluiConta(id: string) {
+        this.modalService.show(ConfirmacaoDeleteComponent).subscribe(() => {
+            if (this.modalService.ultimaAcao == AcaoModal.CONFIRMA) {
+                this.requisicaoService.realizaRequisicao(
+                    this.requisicao.removeContaUsuario(id)
+                ).subscribe(() => this.ngOnInit());
+            }
+        });
     }
 
 }

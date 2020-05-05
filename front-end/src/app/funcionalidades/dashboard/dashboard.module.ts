@@ -6,6 +6,7 @@ import { ContasComponent } from './contas/contas.component';
 import { ComponentesModule } from '../../componentes/componentes.module';
 import { NovaContaComponent } from './contas/nova-conta/nova-conta.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConfirmacaoDeleteComponent } from './contas/confirmacao-delete/confirmacao-delete.component';
 
 
 const routes = [
@@ -16,7 +17,12 @@ const routes = [
 ];
 
 @NgModule({
-    declarations: [DashboardComponent, ContasComponent, NovaContaComponent],
+    declarations: [
+        DashboardComponent,
+        ContasComponent,
+        NovaContaComponent,
+        ConfirmacaoDeleteComponent
+    ],
     imports: [
         CommonModule,
         RouterModule.forChild(routes),

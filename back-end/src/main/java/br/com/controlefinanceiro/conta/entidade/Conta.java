@@ -6,18 +6,16 @@ import lombok.Setter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 import br.com.controlefinanceiro.generico.entidade.EntidadePersistente;
@@ -30,6 +28,9 @@ import br.com.controlefinanceiro.usuario.entidade.Usuario;
 @Entity
 @Table(name = "CTA")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@NamedQueries({
+        @NamedQuery(name = "consultaPorIdEUsuario", query = "SELECT c FROM Conta c WHERE c.id = :id AND c.usuario = :usuario")
+        })
 public class Conta implements EntidadePersistente
 {
     @Id
@@ -54,7 +55,8 @@ public class Conta implements EntidadePersistente
     private List<Saldo> saldos;
 
     @PrePersist
-    public void prePersist() {
+    public void prePersist()
+    {
         id = UUID.randomUUID();
     }
 }

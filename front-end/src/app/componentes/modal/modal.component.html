@@ -1,7 +1,7 @@
 <div class="container-externo" *ngIf="visivel">
     <div class="container">
         <ng-content></ng-content>
-        <button (click)="cancela()" class="btn btn-danger">cancela</button>
+        <button (click)="cancela()" class="btn btn-danger">cancelar</button>
         <button [disabled]="desabilitaConfirma" (click)="confirma()" class="btn btn-primary">confirmar</button>
     </div>
 </div>

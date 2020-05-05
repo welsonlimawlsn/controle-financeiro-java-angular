@@ -3,6 +3,6 @@
 <ul>
     <li *ngFor="let conta of contas">
         {{conta.nome | lowercase}} {{conta.valorInicial | currency : 'BRL'}} <i class="fas fa-pencil-alt"></i><i
-            class="fas fa-trash-alt"></i>
+            (click)="excluiConta(conta.id)" class="fas fa-trash-alt"></i>
     </li>
 </ul>

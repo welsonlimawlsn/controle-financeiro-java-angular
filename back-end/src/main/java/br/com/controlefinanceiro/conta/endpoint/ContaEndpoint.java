@@ -1,6 +1,8 @@
 package br.com.controlefinanceiro.conta.endpoint;
 
+import javax.ws.rs.BeanParam;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -11,6 +13,8 @@ import br.com.controlefinanceiro.conta.dto.consulta.ConsultaContasUsuarioRequisi
 import br.com.controlefinanceiro.conta.dto.consulta.ConsultaContasUsuarioRespostaDTO;
 import br.com.controlefinanceiro.conta.dto.nova.NovaContaRequisicaoDTO;
 import br.com.controlefinanceiro.conta.dto.nova.NovaContaRespostaDTO;
+import br.com.controlefinanceiro.conta.dto.remocao.RemoveContaUsuarioRequisicaoDTO;
+import br.com.controlefinanceiro.conta.dto.remocao.RemoveContaUsuarioRespostaDTO;
 import br.com.controlefinanceiro.exception.InfraestruturaException;
 import br.com.controlefinanceiro.exception.NegocioException;
 
@@ -24,4 +28,8 @@ public interface ContaEndpoint
 
     @GET
     ConsultaContasUsuarioRespostaDTO consultaContasUsuario(ConsultaContasUsuarioRequisicaoDTO requisicao) throws InfraestruturaException, NegocioException;
+
+    @Path("/{codigoConta}")
+    @DELETE
+    RemoveContaUsuarioRespostaDTO removeContaUsuario(@BeanParam RemoveContaUsuarioRequisicaoDTO requisicao) throws InfraestruturaException, NegocioException;
 }

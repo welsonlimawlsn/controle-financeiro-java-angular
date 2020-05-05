@@ -37,7 +37,8 @@ public enum Erro
     CODIGO_SEGURANCA_INVALIDO("026", Response.Status.UNAUTHORIZED),
     TAMANHO_MINIMO_SENHA("027", Response.Status.BAD_REQUEST),
     DISPOSITIVO_OBRIGATORIO("028", Response.Status.FORBIDDEN),
-    DISPOSITIVO_INVALIDO("029", Response.Status.FORBIDDEN);
+    DISPOSITIVO_INVALIDO("029", Response.Status.FORBIDDEN),
+    CONTA_NAO_ENCONTRADA("030", Response.Status.NOT_FOUND);
 
     private final String codigo;
 

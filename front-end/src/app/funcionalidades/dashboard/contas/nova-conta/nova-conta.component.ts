@@ -30,6 +30,6 @@ export class NovaContaComponent implements OnInit {
     criaConta() {
         this.requisicaoService.realizaRequisicao(
             this.requisicao.novaConta(this.formularioNovaConta.value)
-        ).subscribe((resposta) => console.log(resposta));
+        ).subscribe(() => this.modalService.close());
     }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.ws.rs.QueryParam;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 
@@ -18,6 +19,7 @@ import br.com.controlefinanceiro.usuario.entidade.Usuario;
 @Setter
 public abstract class RequisicaoDTO<T extends RespostaDTO>
 {
+    @QueryParam("codigoSeguranca")
     private String codigoSeguranca;
 
     private String email;

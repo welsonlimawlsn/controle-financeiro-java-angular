@@ -24,6 +24,12 @@ public class DAOImpl<T extends EntidadePersistente, ID> implements DAO<T, ID>
     }
 
     @Override
+    public void remove(T entity)
+    {
+        entityManager.remove(entity);
+    }
+
+    @Override
     public Optional<T> buscaPorId(ID id)
     {
         return Optional.ofNullable(entityManager.find(getTypeEntity(), id));

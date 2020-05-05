@@ -15,4 +15,6 @@ public interface Funcionalidades
     int RECUPERACAO_SENHA = 6;
 
     int NOVO_DISPOSITIVO = 7;
+
+    int REMOVE_CONTA_USUARIO = 8;
 }

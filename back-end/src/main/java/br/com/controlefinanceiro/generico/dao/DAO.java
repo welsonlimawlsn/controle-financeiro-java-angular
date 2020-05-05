@@ -8,5 +8,7 @@ public interface DAO<T extends EntidadePersistente, ID>
 {
     void salva(T entity);
 
+    void remove(T entity);
+
     Optional<T> buscaPorId(ID id);
 }
