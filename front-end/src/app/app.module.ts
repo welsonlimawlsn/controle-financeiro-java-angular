@@ -16,6 +16,7 @@ import { SessaoService } from './componentes/seguranca/sessao.service';
 import { CustomHttpInterceptorService } from './componentes/http/custom-http-interceptor.service';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { ModalService } from './componentes/modal/modal.service';
 
 registerLocaleData(localePt);
 
@@ -36,6 +37,7 @@ registerLocaleData(localePt);
         DefaultService,
         MensagemService,
         SessaoService,
+        ModalService,
         {
             provide: BASE_PATH,
             useValue: environment.baseUrl

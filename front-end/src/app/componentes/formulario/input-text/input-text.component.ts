@@ -54,7 +54,7 @@ export class InputTextComponent implements OnInit, ControlValueAccessor, AfterVi
     @Input() formControlName: string;
     @Input() autoFocus: boolean = false;
     @Input() password: boolean = false;
-    @Input() email: boolean = false;
+    @Input() isEmail: boolean = false;
     texto: string;
     oldValue: string = '';
     focused: boolean = false;
@@ -123,6 +123,6 @@ export class InputTextComponent implements OnInit, ControlValueAccessor, AfterVi
     }
 
     getType() {
-        return this.email ? 'email' : 'text';
+        return this.isEmail ? 'email' : 'text';
     }
 }

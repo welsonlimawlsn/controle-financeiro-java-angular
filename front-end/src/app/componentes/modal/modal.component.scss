@@ -1,0 +1,15 @@
+.container-externo {
+  position: absolute;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  z-index: 60;
+  top: 0;
+  left: 0;
+}
+
+.container-externo > .container {
+  box-shadow: #d7d7d7 0 0 50px;
+  padding: 1rem;
+  margin-top: 5rem;
+}
