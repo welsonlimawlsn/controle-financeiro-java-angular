@@ -78,7 +78,7 @@ export class InputTextComponent implements OnInit, ControlValueAccessor, AfterVi
     }
 
     get labelRecolhida(): boolean {
-        return !!this.texto || this.focused;
+        return this.texto !== '' || this.focused;
     }
 
     focus() {

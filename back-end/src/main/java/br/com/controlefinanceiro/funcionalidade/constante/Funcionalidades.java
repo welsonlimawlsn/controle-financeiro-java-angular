@@ -17,4 +17,6 @@ public interface Funcionalidades
     int NOVO_DISPOSITIVO = 7;
 
     int REMOVE_CONTA_USUARIO = 8;
+
+    int ATUALIZA_CONTA_USUARIO = 9;
 }

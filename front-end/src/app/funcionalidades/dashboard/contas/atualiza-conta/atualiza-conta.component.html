@@ -1,0 +1,10 @@
+<app-modal (onConfirma)="atualizaConta()">
+    <h1>atualizar conta</h1>
+    <app-mensagem-erro></app-mensagem-erro>
+    <form [formGroup]="formularioAtualizaConta">
+        <app-input-text [formGroup]="formularioAtualizaConta" id="nome-conta" [autoFocus]="true" formControlName="nome"
+                        label="nome da conta"></app-input-text>
+        <app-input-text [formGroup]="formularioAtualizaConta" id="valor-inicial" formControlName="valorInicial"
+                        label="valor inicial"></app-input-text>
+    </form>
+</app-modal>

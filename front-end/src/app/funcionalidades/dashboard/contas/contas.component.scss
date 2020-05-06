@@ -1,0 +1,42 @@
+.btn-secondary {
+  background: none;
+  border: none;
+  color: #818181;
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active {
+  background: none;
+  box-shadow: none;
+  color: #818181;
+}
+
+.btn-secondary:focus {
+  box-shadow: none;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+li .btn {
+  padding: 0 5px;
+  margin: 0 5px;
+  height: auto;
+}
+
+h1 {
+  position: relative;
+}
+
+h1 > button {
+  position: absolute;
+  right: 0;
+}

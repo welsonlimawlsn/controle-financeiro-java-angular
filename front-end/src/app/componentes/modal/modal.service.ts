@@ -10,11 +10,14 @@ export class ModalService {
 
     ultimaAcao: AcaoModal;
 
+    data: any;
+
     constructor(private componentFactoryResolver: ComponentFactoryResolver) {
     }
 
-    show(component: Type<any>): Observable<any> {
+    show(component: Type<any>, data?: any): Observable<any> {
         this._eventEmitter.emit(this.componentFactoryResolver.resolveComponentFactory(component))
+        this.data = data;
         return new Observable<any>(subscriber => {
             this._eventEmitter.subscribe(value => {
                 if (!value) {

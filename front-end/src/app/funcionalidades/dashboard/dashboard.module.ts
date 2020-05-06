@@ -7,6 +7,7 @@ import { ComponentesModule } from '../../componentes/componentes.module';
 import { NovaContaComponent } from './contas/nova-conta/nova-conta.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConfirmacaoDeleteComponent } from './contas/confirmacao-delete/confirmacao-delete.component';
+import { AtualizaContaComponent } from './contas/atualiza-conta/atualiza-conta.component';
 
 
 const routes = [
@@ -21,7 +22,8 @@ const routes = [
         DashboardComponent,
         ContasComponent,
         NovaContaComponent,
-        ConfirmacaoDeleteComponent
+        ConfirmacaoDeleteComponent,
+        AtualizaContaComponent
     ],
     imports: [
         CommonModule,

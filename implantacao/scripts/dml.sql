@@ -20,6 +20,9 @@ values (7, false, 'Permite registrar um novo dispositivo', 'Novo Dispositivo', n
 insert into fcn (fcnid, fcnatcogr, fcndcc, fcnnme, fcnptdtds)
 values (8, true, 'Permite remover uma conta', 'Remove conta', false);
 
+insert into fcn (fcnid, fcnatcogr, fcndcc, fcnnme, fcnptdtds)
+values (9, true, 'Permite atualizar uma conta', 'Atualiza conta', false);
+
 -- GRUPOS
 
 insert into gpo(gpoid, gponme)
@@ -44,6 +47,8 @@ VALUES (2, 4);
 insert into gpofcn (gpoid, fcnid)
 VALUES (2, 5);
 
-
 insert into gpofcn (gpoid, fcnid)
 VALUES (2, 8);
+
+insert into gpofcn (gpoid, fcnid)
+VALUES (2, 9);

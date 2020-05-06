@@ -5,10 +5,13 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import br.com.controlefinanceiro.conta.dto.atualiza.AtualizaContaUsuarioRequisicaoDTO;
+import br.com.controlefinanceiro.conta.dto.atualiza.AtualizaContaUsuarioRespostaDTO;
 import br.com.controlefinanceiro.conta.dto.consulta.ConsultaContasUsuarioRequisicaoDTO;
 import br.com.controlefinanceiro.conta.dto.consulta.ConsultaContasUsuarioRespostaDTO;
 import br.com.controlefinanceiro.conta.dto.nova.NovaContaRequisicaoDTO;
@@ -32,4 +35,7 @@ public interface ContaEndpoint
     @Path("/{codigoConta}")
     @DELETE
     RemoveContaUsuarioRespostaDTO removeContaUsuario(@BeanParam RemoveContaUsuarioRequisicaoDTO requisicao) throws InfraestruturaException, NegocioException;
+
+    @PUT
+    AtualizaContaUsuarioRespostaDTO atualizaContaUsuario(AtualizaContaUsuarioRequisicaoDTO requisicao) throws InfraestruturaException, NegocioException;
 }

@@ -1,8 +1,18 @@
-<h1>contas<button (click)="novaConta()"><i class="fas fa-plus"></i></button></h1>
+<h1>
+    contas
+    <button (click)="novaConta()" class="btn btn-secondary"><i class="fas fa-plus"></i></button>
+</h1>
 
 <ul>
     <li *ngFor="let conta of contas">
-        {{conta.nome | lowercase}} {{conta.valorInicial | currency : 'BRL'}} <i class="fas fa-pencil-alt"></i><i
-            (click)="excluiConta(conta.id)" class="fas fa-trash-alt"></i>
+        <div class="nome-conta">{{conta.nome | lowercase}}</div>
+        <div class="valor-conta">{{conta.valorInicial | currency : 'BRL'}}
+            <button class="btn btn-secondary" (click)="atualizaConta(conta)">
+                <i class="fas fa-pencil-alt"></i>
+            </button>
+            <button class="btn btn-secondary" (click)="excluiConta(conta.id)">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </div>
     </li>
 </ul>

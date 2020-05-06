@@ -3,6 +3,8 @@ package br.com.controlefinanceiro.conta.ejb;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
+import br.com.controlefinanceiro.conta.dto.atualiza.AtualizaContaUsuarioRequisicaoDTO;
+import br.com.controlefinanceiro.conta.dto.atualiza.AtualizaContaUsuarioRespostaDTO;
 import br.com.controlefinanceiro.conta.dto.consulta.ConsultaContasUsuarioRequisicaoDTO;
 import br.com.controlefinanceiro.conta.dto.consulta.ConsultaContasUsuarioRespostaDTO;
 import br.com.controlefinanceiro.conta.dto.nova.NovaContaRequisicaoDTO;
@@ -42,6 +44,14 @@ public class ContaEndpointImpl implements ContaEndpoint
     @Override
     public RemoveContaUsuarioRespostaDTO removeContaUsuario(
             @Funcionalidade(Funcionalidades.REMOVE_CONTA_USUARIO) RemoveContaUsuarioRequisicaoDTO requisicao)
+            throws InfraestruturaException, NegocioException
+    {
+        return processadorRequisicao.processa(requisicao);
+    }
+
+    @Override
+    public AtualizaContaUsuarioRespostaDTO atualizaContaUsuario(
+            @Funcionalidade(Funcionalidades.ATUALIZA_CONTA_USUARIO) AtualizaContaUsuarioRequisicaoDTO requisicao)
             throws InfraestruturaException, NegocioException
     {
         return processadorRequisicao.processa(requisicao);

@@ -4,6 +4,7 @@ import { RequisicaoService } from '../../../componentes/http/requisicao.service'
 import { AcaoModal, ModalService } from '../../../componentes/modal/modal.service';
 import { NovaContaComponent } from './nova-conta/nova-conta.component';
 import { ConfirmacaoDeleteComponent } from './confirmacao-delete/confirmacao-delete.component';
+import { AtualizaContaComponent } from './atualiza-conta/atualiza-conta.component';
 
 @Component({
     selector: 'app-contas',
@@ -23,7 +24,7 @@ export class ContasComponent implements OnInit {
     ngOnInit(): void {
         this.requisicaoService.realizaRequisicao(
             this.requisicao.consultaContasUsuario(), 'get'
-        ).subscribe(resposta => this.contas = resposta.contas);
+        ).subscribe(resposta => this.contas = resposta.contas.sort((a, b) => a.nome.localeCompare(b.nome)));
     }
 
     novaConta() {
@@ -44,4 +45,11 @@ export class ContasComponent implements OnInit {
         });
     }
 
+    atualizaConta(conta: ContaDTO) {
+        this.modalService.show(AtualizaContaComponent, {conta: conta}).subscribe(() => {
+            if (this.modalService.ultimaAcao == AcaoModal.CONFIRMA) {
+                this.ngOnInit();
+            }
+        })
+    }
 }
