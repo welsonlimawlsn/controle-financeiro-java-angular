@@ -5,7 +5,7 @@
     <form [formGroup]="formularioNovaConta">
         <app-input-text [formGroup]="formularioNovaConta" id="nome-conta" [autoFocus]="true" formControlName="nome"
                         label="nome da conta"></app-input-text>
-        <app-input-text [formGroup]="formularioNovaConta" id="valor-inicial" formControlName="valorInicial"
-                        label="valor inicial"></app-input-text>
+        <app-input-valor-monetario [formGroup]="formularioNovaConta" id="valor-inicial" formControlName="valorInicial"
+                        label="valor inicial"></app-input-valor-monetario>
     </form>
 </app-modal>

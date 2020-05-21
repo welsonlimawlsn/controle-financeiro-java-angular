@@ -1,0 +1,25 @@
+<div class="form-group">
+    <div class="label-input">
+        <label (click)="inputElement.focus()" [@comportamentoLabel]="labelRecolhida ? 'labelRecolhida' : 'labelNormal'"
+               [for]="id">{{label}}</label>
+        <input somenteNumero #inputElement [name]="id" autocomplete="off" (focus)="focus()" (blur)="blur()" (keydown)="change()" (keyup)="change()"
+               [type]="!password || mostraSenha ? getType() : 'password'"
+               [(ngModel)]="texto" class="form-control" [class.is-invalid]="errors() && dirty" [id]="id">
+
+        <app-toggle-password *ngIf="password" (onClick)="togglePassword($event)" [mostraSenha]="mostraSenha"></app-toggle-password>
+    </div>
+    <div class="mensagem-erro">
+        <div @mensagemErro *ngIf="errors() && dirty && errors().required" class="invalid-feedback">
+            campo obrigatório.
+        </div>
+        <div @mensagemErro *ngIf="errors() && dirty && errors().email" class="invalid-feedback">
+            e-mail inválido.
+        </div>
+        <div @mensagemErro *ngIf="errors() && dirty && errors().minlength" class="invalid-feedback">
+            campo deve ter no mínino {{errors().minlength.requiredLength}} caracteres.
+        </div>
+        <div @mensagemErro *ngIf="errors() && dirty && errors().maxlength" class="invalid-feedback">
+            campo deve ter no máximo {{errors().maxlength.requiredLength}} caracteres.
+        </div>
+    </div>
+</div>

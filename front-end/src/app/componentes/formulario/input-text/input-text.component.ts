@@ -104,6 +104,10 @@ export class InputTextComponent implements OnInit, ControlValueAccessor, AfterVi
 
     change() {
         this.onChange(this.texto);
+        this.setDirty();
+    }
+
+    setDirty() {
         if (this.texto !== this.oldValue) {
             this.dirty = true;
         }

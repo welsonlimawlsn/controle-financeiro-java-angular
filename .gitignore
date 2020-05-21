@@ -2,3 +2,5 @@
 *.iml
 *.plantuml
 */target
+*.project
+.project

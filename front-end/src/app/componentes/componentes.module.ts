@@ -9,6 +9,8 @@ import { TogglePasswordComponent } from './formulario/toggle-password/toggle-pas
 import { CodigoSegurancaComponent } from './seguranca/codigo-seguranca/codigo-seguranca.component';
 import { ModalComponent } from './modal/modal.component';
 import { LocalModalDirective } from './local-modal.directive';
+import { InputValorMonetarioComponent } from './formulario/input-valor-monetario/input-valor-monetario.component';
+import { SomenteNumeroDirective } from './formulario/diretivas/somente-numero.directive';
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { LocalModalDirective } from './local-modal.directive';
         TogglePasswordComponent,
         CodigoSegurancaComponent,
         ModalComponent,
-        LocalModalDirective
+        LocalModalDirective,
+        InputValorMonetarioComponent,
+        SomenteNumeroDirective
     ],
     exports: [
         InputTextComponent,
@@ -29,7 +33,8 @@ import { LocalModalDirective } from './local-modal.directive';
         InformacaoComponent,
         CodigoSegurancaComponent,
         ModalComponent,
-        LocalModalDirective
+        LocalModalDirective,
+        InputValorMonetarioComponent
     ],
     imports: [
         CommonModule,
